@@ -226,151 +226,17 @@
       background-clip: text;
       color: transparent;
     }
-
-    /* Stat window */
-    .statWindow{
-      margin-top: 12px;
-      border-radius: 18px;
-      border: 1px solid rgba(255,255,255,.14);
-      background:
-        radial-gradient(520px 200px at 15% 0%, rgba(110,231,255,.12), transparent 60%),
-        radial-gradient(520px 200px at 85% 0%, rgba(167,139,250,.12), transparent 60%),
-        rgba(0,0,0,.18);
-      box-shadow: 0 14px 34px rgba(0,0,0,.22);
-      padding: 14px;
-    }
-
-    .statGrid{
-      display:grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-      margin-top: 10px;
-    }
-    @media (min-width: 860px){
-      .statGrid{ grid-template-columns: 1.1fr .9fr; }
-    }
-
-    .statCard{
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.18);
-      padding: 14px;
-    }
-
-    .statK{
-      margin:0 0 8px 0;
-      font-size: 12px;
-      letter-spacing: .14em;
-      text-transform: uppercase;
-      color: rgba(245,247,255,.75);
-      font-weight: 950;
-    }
-
-    .statBig{
-      margin:0;
-      font-size: clamp(26px, 7vw, 44px);
-      font-weight: 980;
-      letter-spacing: -0.8px;
-      line-height: 1.03;
-    }
-
-    .statP{
-      margin: 10px 0 0 0;
-      font-size: 15px;
-      font-weight: 850;
-      color: rgba(245,247,255,.86);
-      line-height: 1.45;
-    }
-
-    /* Ranked list */
-    .rankList{ margin-top: 10px; display:grid; gap: 8px; }
-    .rankRow{
-      display:grid;
-      grid-template-columns: 64px 1fr;
-      gap: 10px;
-      align-items: center;
-      padding: 12px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(0,0,0,.16);
-    }
-    .rankBadge{
-      height: 44px;
-      width: 64px;
-      border-radius: 16px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight: 980;
-      letter-spacing: .04em;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.12);
-      color: rgba(245,247,255,.92);
-    }
-    .rankBadge.isASO{
-      background: linear-gradient(135deg, rgba(110,231,255,.95), rgba(167,139,250,.85));
-      color: rgba(0,0,0,.88);
-      border: none;
-      box-shadow: 0 16px 36px rgba(0,0,0,.35);
-    }
-    .rankMain{ display:flex; flex-direction:column; gap: 4px; }
-    .rankTitle{ margin:0; font-size: 16px; font-weight: 980; letter-spacing: -.2px; }
-    .rankMeta{ margin:0; color: rgba(245,247,255,.78); font-size: 14px; font-weight: 850; }
     .num{ font-variant-numeric: tabular-nums; white-space: nowrap; }
 
-    /* Steps */
-    .steps{ display:grid; grid-template-columns: 1fr; gap: 12px; margin-top: 12px; }
-    .step{
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.18);
-      padding: 14px;
-      box-shadow: 0 12px 26px rgba(0,0,0,.18);
-    }
-    .stepTitle{
-      margin:0;
-      font-size: clamp(22px, 6.2vw, 34px);
-      font-weight: 990;
-      letter-spacing: -0.8px;
-      line-height: 1.03;
-    }
-    .ruleTag{
-      margin-top: 8px;
-      display:inline-flex;
-      padding: 8px 10px;
-      border-radius: 999px;
-      border:1px solid rgba(255,255,255,.14);
-      background: rgba(255,255,255,.03);
-      font-weight: 950;
-      font-size: 12.5px;
-      color: rgba(245,247,255,.86);
-    }
-    .ruleTag strong{ color: var(--accent); font-weight: 980; }
-    .stepText{
-      margin: 10px 0 0 0;
-      font-size: 15px;
-      font-weight: 850;
-      color: rgba(245,247,255,.88);
-      line-height: 1.45;
-    }
-    .bullets{
-      margin: 10px 0 0 18px;
-      padding: 0;
-      color: rgba(245,247,255,.88);
-      font-size: 15px;
-      line-height: 1.45;
-      font-weight: 850;
-    }
-    .bullets li{ margin: 6px 0; }
+    /* ✅ Space after voting table */
+    .afterVotingGap{ margin-bottom: 18px; }
 
-    .footerLink{
-      margin-top: 12px;
-      font-size: 14px;
-      font-weight: 850;
-      color: rgba(245,247,255,.86);
-    }
-
-    /* VOTING POWER STYLES (for the pasted table) */
+    /* ===========================
+       VOTING POWER (MOBILE FIRST)
+       - No horizontal scroll
+       - Column widths controlled
+       - Labels shown per-cell on mobile
+    ============================ */
     .tableCard{
       border: 1px solid rgba(255,255,255,.12);
       border-radius: 18px;
@@ -463,11 +329,12 @@
       margin-top: 12px;
       border-radius: 16px;
       border: 1px solid rgba(255,255,255,.14);
-      overflow:hidden;
+      overflow:hidden; /* ✅ keep it clean */
       background: rgba(0,0,0,.22);
       box-shadow: 0 14px 34px rgba(0,0,0,.22);
     }
-    table{ width:100%; border-collapse: collapse; }
+    table{ width:100%; border-collapse: collapse; table-layout: fixed; } /* ✅ fixed layout = predictable columns */
+
     thead th{
       text-align:left;
       padding: 12px;
@@ -489,9 +356,16 @@
       font-weight: 900;
       color: rgba(245,247,255,.92);
       vertical-align: top;
+      word-break: normal;
+      overflow-wrap: anywhere; /* ✅ prevent spill */
     }
-    .rank{ width: 48px; }
-    .workgroup{ font-weight: 950; }
+
+    /* Desktop column widths */
+    th.col-rank, td.col-rank{ width: 44px; }
+    th.col-wg,   td.col-wg  { width: 48%; }
+    th.col-hc,   td.col-hc  { width: 26%; }
+    th.col-pct,  td.col-pct { width: 26%; }
+
     .workgroupAccent{
       background: linear-gradient(90deg, var(--accent), var(--accent2));
       -webkit-background-clip:text;
@@ -500,6 +374,7 @@
       font-weight: 980;
     }
     .headcountAccent{ color: var(--accent); font-weight: 980; }
+
     .captionLine{
       margin-top: 12px;
       font-size: 13.5px;
@@ -508,8 +383,192 @@
       line-height: 1.45;
     }
 
-    /* ✅ SPACE BETWEEN VOTING TABLE AND MYTH BUST HERO */
-    .afterVotingGap{ margin-bottom: 18px; } /* tweak to taste */
+    /* ✅ Mobile: no scroll, readable, per-cell labels */
+    @media (max-width: 560px){
+      thead{ display:none; }                 /* hide header row */
+      tbody tr{ display:block; padding: 10px 12px; }
+      tbody td{
+        display:flex;
+        gap:10px;
+        justify-content:space-between;
+        align-items:flex-start;
+        padding: 8px 0;
+        border-top: 1px solid rgba(255,255,255,.08);
+        font-size: 14.5px;
+      }
+      tbody td:first-child{ border-top: none; } /* first “row” line cleaner */
+
+      /* Each cell gets a label via data-label */
+      tbody td::before{
+        content: attr(data-label);
+        flex: 0 0 44%;
+        font-size: 11px;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+        font-weight: 980;
+        color: rgba(245,247,255,.70);
+        padding-top: 2px;
+      }
+
+      /* Make the value area align nicely */
+      tbody td .val{
+        flex: 1 1 auto;
+        text-align: right;
+        font-weight: 950;
+      }
+
+      /* Rank looks like a badge on mobile */
+      td.col-rank{
+        justify-content:space-between;
+      }
+      td.col-rank .val{
+        display:inline-flex;
+        align-items:center;
+        justify-content:center;
+        min-width: 46px;
+        height: 30px;
+        border-radius: 999px;
+        border: 1px solid rgba(255,255,255,.14);
+        background: rgba(255,255,255,.05);
+      }
+    }
+
+    /* Stat window (unchanged) */
+    .statWindow{
+      margin-top: 12px;
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.14);
+      background:
+        radial-gradient(520px 200px at 15% 0%, rgba(110,231,255,.12), transparent 60%),
+        radial-gradient(520px 200px at 85% 0%, rgba(167,139,250,.12), transparent 60%),
+        rgba(0,0,0,.18);
+      box-shadow: 0 14px 34px rgba(0,0,0,.22);
+      padding: 14px;
+    }
+    .statGrid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    @media (min-width: 860px){
+      .statGrid{ grid-template-columns: 1.1fr .9fr; }
+    }
+    .statCard{
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      padding: 14px;
+    }
+    .statK{
+      margin:0 0 8px 0;
+      font-size: 12px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(245,247,255,.75);
+      font-weight: 950;
+    }
+    .statBig{
+      margin:0;
+      font-size: clamp(26px, 7vw, 44px);
+      font-weight: 980;
+      letter-spacing: -0.8px;
+      line-height: 1.03;
+    }
+    .statP{
+      margin: 10px 0 0 0;
+      font-size: 15px;
+      font-weight: 850;
+      color: rgba(245,247,255,.86);
+      line-height: 1.45;
+    }
+
+    /* Ranked list */
+    .rankList{ margin-top: 10px; display:grid; gap: 8px; }
+    .rankRow{
+      display:grid;
+      grid-template-columns: 64px 1fr;
+      gap: 10px;
+      align-items: center;
+      padding: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.16);
+    }
+    .rankBadge{
+      height: 44px;
+      width: 64px;
+      border-radius: 16px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight: 980;
+      letter-spacing: .04em;
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.12);
+      color: rgba(245,247,255,.92);
+    }
+    .rankBadge.isASO{
+      background: linear-gradient(135deg, rgba(110,231,255,.95), rgba(167,139,250,.85));
+      color: rgba(0,0,0,.88);
+      border: none;
+      box-shadow: 0 16px 36px rgba(0,0,0,.35);
+    }
+    .rankMain{ display:flex; flex-direction:column; gap: 4px; }
+    .rankTitle{ margin:0; font-size: 16px; font-weight: 980; letter-spacing: -.2px; }
+    .rankMeta{ margin:0; color: rgba(245,247,255,.78); font-size: 14px; font-weight: 850; }
+
+    /* Steps */
+    .steps{ display:grid; grid-template-columns: 1fr; gap: 12px; margin-top: 12px; }
+    .step{
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      padding: 14px;
+      box-shadow: 0 12px 26px rgba(0,0,0,.18);
+    }
+    .stepTitle{
+      margin:0;
+      font-size: clamp(22px, 6.2vw, 34px);
+      font-weight: 990;
+      letter-spacing: -0.8px;
+      line-height: 1.03;
+    }
+    .ruleTag{
+      margin-top: 8px;
+      display:inline-flex;
+      padding: 8px 10px;
+      border-radius: 999px;
+      border:1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.03);
+      font-weight: 950;
+      font-size: 12.5px;
+      color: rgba(245,247,255,.86);
+    }
+    .ruleTag strong{ color: var(--accent); font-weight: 980; }
+    .stepText{
+      margin: 10px 0 0 0;
+      font-size: 15px;
+      font-weight: 850;
+      color: rgba(245,247,255,.88);
+      line-height: 1.45;
+    }
+    .bullets{
+      margin: 10px 0 0 18px;
+      padding: 0;
+      color: rgba(245,247,255,.88);
+      font-size: 15px;
+      line-height: 1.45;
+      font-weight: 850;
+    }
+    .bullets li{ margin: 6px 0; }
+
+    .footerLink{
+      margin-top: 12px;
+      font-size: 14px;
+      font-weight: 850;
+      color: rgba(245,247,255,.86);
+    }
   </style>
 </head>
 
@@ -524,7 +583,6 @@
         <div class="brandname">SA Public Sector Salaried Employees Wage Insights (Public Data)</div>
       </div>
 
-      <!-- ✅ FIX: remove Union pill from header -->
       <div class="nav">
         <a class="pill" href="index.html"><strong>Home</strong></a>
         <a class="pill" href="voting-power.html"><strong>Voting Power</strong></a>
@@ -532,7 +590,7 @@
       </div>
     </div>
 
-    <!-- Voting Power preview (optional) -->
+    <!-- Voting Power preview -->
     <div class="tableCard">
       <h1 class="bigTitle">
         <span class="grad">Where the Voting Power Lies</span>
@@ -563,47 +621,53 @@
         <table>
           <thead>
             <tr>
-              <th class="rank">#</th>
-              <th>Employee Workgroup</th>
-              <th class="num">Total headcount</th>
-              <th class="num">% of total headcount</th>
+              <th class="col-rank">#</th>
+              <th class="col-wg">Employee Workgroup</th>
+              <th class="col-hc num">Total headcount</th>
+              <th class="col-pct num">% of total headcount</th>
             </tr>
           </thead>
 
           <tbody>
             <tr>
-              <td class="rank">1</td>
-              <td class="workgroup"><span class="workgroupAccent">Administrative Services</span></td>
-              <td class="num"><span class="headcountAccent">23,970</span></td>
-              <td class="num">63.64%</td>
+              <td class="col-rank" data-label="Rank"><span class="val">1</span></td>
+              <td class="col-wg" data-label="Workgroup">
+                <span class="val"><span class="workgroupAccent">Administrative Services</span></span>
+              </td>
+              <td class="col-hc num" data-label="Headcount">
+                <span class="val"><span class="headcountAccent">23,970</span></span>
+              </td>
+              <td class="col-pct num" data-label="Share">
+                <span class="val">63.64%</span>
+              </td>
             </tr>
 
             <tr>
-              <td class="rank">2</td>
-              <td class="workgroup">Operational Services</td>
-              <td class="num">3,805</td>
-              <td class="num">10.17%</td>
+              <td class="col-rank" data-label="Rank"><span class="val">2</span></td>
+              <td class="col-wg" data-label="Workgroup"><span class="val">Operational Services</span></td>
+              <td class="col-hc num" data-label="Headcount"><span class="val">3,805</span></td>
+              <td class="col-pct num" data-label="Share"><span class="val">10.17%</span></td>
             </tr>
 
             <tr>
-              <td class="rank">3</td>
-              <td class="workgroup">Professional Officers</td>
-              <td class="num">1,816</td>
-              <td class="num">4.86%</td>
+              <td class="col-rank" data-label="Rank"><span class="val">3</span></td>
+              <td class="col-wg" data-label="Workgroup"><span class="val">Professional Officers</span></td>
+              <td class="col-hc num" data-label="Headcount"><span class="val">1,816</span></td>
+              <td class="col-pct num" data-label="Share"><span class="val">4.86%</span></td>
             </tr>
 
             <tr>
-              <td class="rank">4</td>
-              <td class="workgroup">Correctional Officers</td>
-              <td class="num">1,055</td>
-              <td class="num">2.82%</td>
+              <td class="col-rank" data-label="Rank"><span class="val">4</span></td>
+              <td class="col-wg" data-label="Workgroup"><span class="val">Correctional Officers</span></td>
+              <td class="col-hc num" data-label="Headcount"><span class="val">1,055</span></td>
+              <td class="col-pct num" data-label="Share"><span class="val">2.82%</span></td>
             </tr>
 
             <tr>
-              <td class="rank">5</td>
-              <td class="workgroup">Technical Services</td>
-              <td class="num">758</td>
-              <td class="num">2.03%</td>
+              <td class="col-rank" data-label="Rank"><span class="val">5</span></td>
+              <td class="col-wg" data-label="Workgroup"><span class="val">Technical Services</span></td>
+              <td class="col-hc num" data-label="Headcount"><span class="val">758</span></td>
+              <td class="col-pct num" data-label="Share"><span class="val">2.03%</span></td>
             </tr>
           </tbody>
         </table>
@@ -619,7 +683,7 @@
       </div>
     </section>
 
-    <!-- HERO (now has breathing room above it) -->
+    <!-- HERO -->
     <section class="hero">
       <div class="tag">MYTH BUST • ASO POWER</div>
 
@@ -647,7 +711,7 @@
       </div>
     </section>
 
-    <!-- 500 RULE (short) -->
+    <!-- 500 RULE -->
     <section class="section">
       <div class="mega">
         <p class="megaK">The councillor rule (simple)</p>
@@ -664,8 +728,9 @@
         <p class="statK">ASO myth bust (in one hit)</p>
         <p class="statBig"><span class="gText">ASOs ≈ 31.25%</span> of implied avg membership</p>
         <p class="statP">
-          That’s the <strong>largest slice</strong> in this estimate — so “ASOs aren’t members” is not the point.
-          The point is: <span class="gText"><strong>are ASO members being backed like the biggest bloc?</strong></span>
+          That’s the largest slice in this estimate not including overlap into Health and Education:
+          so “ASOs aren’t members” is not the point. The point is:
+          <span class="gText"><strong>Why aren't they being backed like the biggest bloc?</strong></span>
         </p>
 
         <div class="statGrid">
@@ -710,7 +775,7 @@
           <div class="rankRow">
             <div class="rankBadge">#2</div>
             <div class="rankMain">
-              <p class="rankTitle">OSOs (Electorate 7)</p>
+              <p class="rankTitle">Operational Services (Electorate 7)</p>
               <p class="rankMeta">
                 Avg <span class="num">2,250.5</span> • Share <span class="num">25.57%</span> • Councillors <span class="num">5</span>
               </p>
@@ -749,11 +814,12 @@
         </div>
       </div>
 
+      <!-- ✅ Updated bottom-line copy -->
       <div class="mega">
         <p class="megaK">Bottom line</p>
-        <p class="megaT">ASOs are the biggest bloc here.</p>
+        <p class="megaT">The ASO myth is busted, but has caused division, in reality: <span class="grad"><strong>Every Member Counts.</strong></span></p>
         <p class="megaP">
-          So if ASO members speak up and get shut down, that’s not “low density”.
+          So if any member speak up and get shut down, that’s not “low density”.
           That’s a <span class="grad"><strong>representation problem</strong></span>.
         </p>
       </div>
