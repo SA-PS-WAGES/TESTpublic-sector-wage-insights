@@ -569,7 +569,136 @@
       font-weight: 850;
       color: rgba(245,247,255,.86);
     }
-  </style>
+  /* ===== Voting Power: compact responsive layout ===== */
+
+  /* Desktop/tablet: normal table */
+  .vpTableWrap{
+    margin-top: 12px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,.14);
+    overflow: hidden;
+    background: rgba(0,0,0,.22);
+    box-shadow: 0 14px 34px rgba(0,0,0,.22);
+  }
+  .vpTable{
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+  .vpTable thead th{
+    text-align:left;
+    padding: 12px;
+    font-size: 12px;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    font-weight: 980;
+    color: rgba(245,247,255,.9);
+    background:
+      radial-gradient(520px 160px at 20% 0%, rgba(110,231,255,.18), transparent 60%),
+      radial-gradient(520px 160px at 80% 0%, rgba(167,139,250,.18), transparent 60%),
+      rgba(255,255,255,.04);
+    border-bottom: 1px solid rgba(255,255,255,.10);
+  }
+  .vpTable tbody td{
+    padding: 12px;
+    border-top: 1px solid rgba(255,255,255,.08);
+    font-size: 15px;
+    font-weight: 900;
+    color: rgba(245,247,255,.92);
+    vertical-align: top;
+    overflow-wrap: anywhere;
+  }
+  .vpColRank{ width: 54px; }
+  .vpColWG{ width: 52%; }
+  .vpColHC{ width: 22%; }
+  .vpColPct{ width: 26%; }
+  .vpNum{ font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .vpAccentWG{
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color: transparent;
+    font-weight: 980;
+  }
+  .vpAccentHC{ color: var(--accent); font-weight: 980; }
+
+  /* Mobile: compact “rank list” cards (no long stacked labels) */
+  .vpList{ display:none; margin-top: 12px; gap: 8px; }
+  .vpRow{
+    display:grid;
+    grid-template-columns: 58px 1fr;
+    gap: 10px;
+    align-items: center;
+    padding: 12px;
+    border-radius: 16px;
+    border: 1px solid rgba(255,255,255,.12);
+    background: rgba(0,0,0,.16);
+  }
+  .vpBadge{
+    height: 44px;
+    width: 58px;
+    border-radius: 16px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-weight: 980;
+    letter-spacing: .04em;
+    background: rgba(255,255,255,.06);
+    border: 1px solid rgba(255,255,255,.12);
+    color: rgba(245,247,255,.92);
+  }
+  .vpBadge.isTop{
+    background: linear-gradient(135deg, rgba(110,231,255,.95), rgba(167,139,250,.85));
+    color: rgba(0,0,0,.88);
+    border: none;
+    box-shadow: 0 16px 36px rgba(0,0,0,.35);
+  }
+  .vpMain{ display:flex; flex-direction:column; gap: 6px; min-width:0; }
+  .vpTitle{
+    margin:0;
+    font-size: 16px;
+    font-weight: 980;
+    letter-spacing: -.2px;
+    line-height: 1.15;
+  }
+  .vpMeta{
+    margin:0;
+    display:flex;
+    flex-wrap:wrap;
+    gap: 8px;
+    font-size: 13.5px;
+    font-weight: 850;
+    color: rgba(245,247,255,.78);
+  }
+  .vpPill{
+    display:inline-flex;
+    align-items:center;
+    gap: 6px;
+    padding: 6px 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.12);
+    background: rgba(255,255,255,.04);
+    white-space: nowrap;
+  }
+  .vpPill strong{
+    color: rgba(245,247,255,.92);
+    font-weight: 980;
+  }
+
+  /* Switch breakpoint */
+  @media (max-width: 620px){
+    .vpTableWrap{ display:none; }
+    .vpList{ display:grid; }
+  }
+
+  /* Slightly tighter spacing on very small screens */
+  @media (max-width: 420px){
+    .vpRow{ padding: 10px; grid-template-columns: 54px 1fr; }
+    .vpBadge{ width: 54px; }
+    .vpTitle{ font-size: 15px; }
+    .vpMeta{ font-size: 13px; }
+  }
+</style>
 </head>
 
 <body>
@@ -617,71 +746,119 @@
     </div>
 
     <section class="section afterVotingGap">
-      <div class="tableWrap" role="region" aria-label="Voting power table">
-        <table>
-          <thead>
-            <tr>
-              <th class="col-rank">#</th>
-              <th class="col-wg">Employee Workgroup</th>
-              <th class="col-hc num">Total headcount</th>
-              <th class="col-pct num">% of total headcount</th>
-            </tr>
-          </thead>
+  <!-- Desktop/tablet table -->
+  <div class="vpTableWrap" role="region" aria-label="Voting power table">
+    <table class="vpTable">
+      <thead>
+        <tr>
+          <th class="vpColRank">#</th>
+          <th class="vpColWG">Employee Workgroup</th>
+          <th class="vpColHC vpNum">Total headcount</th>
+          <th class="vpColPct vpNum">% of total headcount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="vpNum">1</td>
+          <td><span class="vpAccentWG">Administrative Services</span></td>
+          <td class="vpNum"><span class="vpAccentHC">23,970</span></td>
+          <td class="vpNum">63.64%</td>
+        </tr>
+        <tr>
+          <td class="vpNum">2</td>
+          <td>Operational Services</td>
+          <td class="vpNum">3,805</td>
+          <td class="vpNum">10.17%</td>
+        </tr>
+        <tr>
+          <td class="vpNum">3</td>
+          <td>Professional Officers</td>
+          <td class="vpNum">1,816</td>
+          <td class="vpNum">4.86%</td>
+        </tr>
+        <tr>
+          <td class="vpNum">4</td>
+          <td>Correctional Officers</td>
+          <td class="vpNum">1,055</td>
+          <td class="vpNum">2.82%</td>
+        </tr>
+        <tr>
+          <td class="vpNum">5</td>
+          <td>Technical Services</td>
+          <td class="vpNum">758</td>
+          <td class="vpNum">2.03%</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-          <tbody>
-            <tr>
-              <td class="col-rank" data-label="Rank"><span class="val">1</span></td>
-              <td class="col-wg" data-label="Workgroup">
-                <span class="val"><span class="workgroupAccent">Administrative Services</span></span>
-              </td>
-              <td class="col-hc num" data-label="Headcount">
-                <span class="val"><span class="headcountAccent">23,970</span></span>
-              </td>
-              <td class="col-pct num" data-label="Share">
-                <span class="val">63.64%</span>
-              </td>
-            </tr>
-
-            <tr>
-              <td class="col-rank" data-label="Rank"><span class="val">2</span></td>
-              <td class="col-wg" data-label="Workgroup"><span class="val">Operational Services</span></td>
-              <td class="col-hc num" data-label="Headcount"><span class="val">3,805</span></td>
-              <td class="col-pct num" data-label="Share"><span class="val">10.17%</span></td>
-            </tr>
-
-            <tr>
-              <td class="col-rank" data-label="Rank"><span class="val">3</span></td>
-              <td class="col-wg" data-label="Workgroup"><span class="val">Professional Officers</span></td>
-              <td class="col-hc num" data-label="Headcount"><span class="val">1,816</span></td>
-              <td class="col-pct num" data-label="Share"><span class="val">4.86%</span></td>
-            </tr>
-
-            <tr>
-              <td class="col-rank" data-label="Rank"><span class="val">4</span></td>
-              <td class="col-wg" data-label="Workgroup"><span class="val">Correctional Officers</span></td>
-              <td class="col-hc num" data-label="Headcount"><span class="val">1,055</span></td>
-              <td class="col-pct num" data-label="Share"><span class="val">2.82%</span></td>
-            </tr>
-
-            <tr>
-              <td class="col-rank" data-label="Rank"><span class="val">5</span></td>
-              <td class="col-wg" data-label="Workgroup"><span class="val">Technical Services</span></td>
-              <td class="col-hc num" data-label="Headcount"><span class="val">758</span></td>
-              <td class="col-pct num" data-label="Share"><span class="val">2.03%</span></td>
-            </tr>
-          </tbody>
-        </table>
+  <!-- Mobile compact card list -->
+  <div class="vpList" aria-label="Voting power list (mobile)">
+    <div class="vpRow">
+      <div class="vpBadge isTop">#1</div>
+      <div class="vpMain">
+        <p class="vpTitle"><span class="vpAccentWG">Administrative Services</span></p>
+        <p class="vpMeta">
+          <span class="vpPill">Headcount <strong class="vpNum vpAccentHC">23,970</strong></span>
+          <span class="vpPill">Share <strong class="vpNum">63.64%</strong></span>
+        </p>
       </div>
+    </div>
 
-      <div class="captionLine">
-        Extracted from the “SA public sector by employee and appointment types” table on page 22. Totals shown only.
-        <br/>
-        Source:
-        <a href="https://www.publicsector.sa.gov.au/__data/assets/pdf_file/0020/1205462/2025-Workforce-Information-Report.pdf" target="_blank" rel="noopener">
-          https://www.publicsector.sa.gov.au/__data/assets/pdf_file/0020/1205462/2025-Workforce-Information-Report.pdf
-        </a>
+    <div class="vpRow">
+      <div class="vpBadge">#2</div>
+      <div class="vpMain">
+        <p class="vpTitle">Operational Services</p>
+        <p class="vpMeta">
+          <span class="vpPill">Headcount <strong class="vpNum">3,805</strong></span>
+          <span class="vpPill">Share <strong class="vpNum">10.17%</strong></span>
+        </p>
       </div>
-    </section>
+    </div>
+
+    <div class="vpRow">
+      <div class="vpBadge">#3</div>
+      <div class="vpMain">
+        <p class="vpTitle">Professional Officers</p>
+        <p class="vpMeta">
+          <span class="vpPill">Headcount <strong class="vpNum">1,816</strong></span>
+          <span class="vpPill">Share <strong class="vpNum">4.86%</strong></span>
+        </p>
+      </div>
+    </div>
+
+    <div class="vpRow">
+      <div class="vpBadge">#4</div>
+      <div class="vpMain">
+        <p class="vpTitle">Correctional Officers</p>
+        <p class="vpMeta">
+          <span class="vpPill">Headcount <strong class="vpNum">1,055</strong></span>
+          <span class="vpPill">Share <strong class="vpNum">2.82%</strong></span>
+        </p>
+      </div>
+    </div>
+
+    <div class="vpRow">
+      <div class="vpBadge">#5</div>
+      <div class="vpMain">
+        <p class="vpTitle">Technical Services</p>
+        <p class="vpMeta">
+          <span class="vpPill">Headcount <strong class="vpNum">758</strong></span>
+          <span class="vpPill">Share <strong class="vpNum">2.03%</strong></span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="captionLine">
+    Extracted from the “SA public sector by employee and appointment types” table on page 22. Totals shown only.
+    <br/>
+    Source:
+    <a href="https://www.publicsector.sa.gov.au/__data/assets/pdf_file/0020/1205462/2025-Workforce-Information-Report.pdf" target="_blank" rel="noopener">
+      https://www.publicsector.sa.gov.au/__data/assets/pdf_file/0020/1205462/2025-Workforce-Information-Report.pdf
+    </a>
+  </div>
+</section>
 
     <!-- HERO -->
     <section class="hero">
