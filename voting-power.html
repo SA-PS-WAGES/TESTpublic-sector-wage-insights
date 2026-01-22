@@ -698,6 +698,20 @@
     .vpTitle{ font-size: 15px; }
     .vpMeta{ font-size: 13px; }
   }
+  /* Stack voting power pills vertically on mobile */
+@media (max-width: 620px){
+  .vpMeta{
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .vpPill{
+    width: 100%;
+    justify-content: space-between;
+  }
+}
+
 </style>
 </head>
 
@@ -800,7 +814,7 @@
         <p class="vpTitle"><span class="vpAccentWG">Administrative Services</span></p>
         <p class="vpMeta">
           <span class="vpPill">Headcount <strong class="vpNum vpAccentHC">23,970</strong></span>
-          <span class="vpPill">Share <strong class="vpNum">63.64%</strong></span>
+          <span class="vpPill">% of total headcount <strong class="vpNum">63.64%</strong></span>
         </p>
       </div>
     </div>
@@ -811,7 +825,7 @@
         <p class="vpTitle">Operational Services</p>
         <p class="vpMeta">
           <span class="vpPill">Headcount <strong class="vpNum">3,805</strong></span>
-          <span class="vpPill">Share <strong class="vpNum">10.17%</strong></span>
+          <span class="vpPill">% of total headcount <strong class="vpNum">10.17%</strong></span>
         </p>
       </div>
     </div>
@@ -822,7 +836,7 @@
         <p class="vpTitle">Professional Officers</p>
         <p class="vpMeta">
           <span class="vpPill">Headcount <strong class="vpNum">1,816</strong></span>
-          <span class="vpPill">Share <strong class="vpNum">4.86%</strong></span>
+          <span class="vpPill">% of total headcount <strong class="vpNum">4.86%</strong></span>
         </p>
       </div>
     </div>
@@ -833,7 +847,7 @@
         <p class="vpTitle">Correctional Officers</p>
         <p class="vpMeta">
           <span class="vpPill">Headcount <strong class="vpNum">1,055</strong></span>
-          <span class="vpPill">Share <strong class="vpNum">2.82%</strong></span>
+          <span class="vpPill">% of total headcount <strong class="vpNum">2.82%</strong></span>
         </p>
       </div>
     </div>
@@ -844,7 +858,7 @@
         <p class="vpTitle">Technical Services</p>
         <p class="vpMeta">
           <span class="vpPill">Headcount <strong class="vpNum">758</strong></span>
-          <span class="vpPill">Share <strong class="vpNum">2.03%</strong></span>
+          <span class="vpPill">% of total headcount <strong class="vpNum">2.03%</strong></span>
         </p>
       </div>
     </div>
@@ -934,7 +948,7 @@
             <div class="rankMain">
               <p class="rankTitle"><span class="gText">ASOs</span> (Electorate 5)</p>
               <p class="rankMeta">
-                Avg <span class="num">2,750.5</span> • Share <span class="num">31.25%</span> • Councillors <span class="num">6</span>
+                Avg <span class="num">2,750.5</span> • % of total members <span class="num">31.25%</span> • Councillors <span class="num">6</span>
               </p>
             </div>
           </div>
@@ -944,7 +958,7 @@
             <div class="rankMain">
               <p class="rankTitle">Health (Electorate 2)</p>
               <p class="rankMeta">
-                Avg <span class="num">2,250.5</span> • Share <span class="num">25.57%</span> • Councillors <span class="num">5</span>
+                Avg <span class="num">2,250.5</span> • % of total members <span class="num">25.57%</span> • Councillors <span class="num">5</span>
               </p>
             </div>
           </div>
@@ -954,7 +968,7 @@
             <div class="rankMain">
               <p class="rankTitle">Operational Services (Electorate 7)</p>
               <p class="rankMeta">
-                Avg <span class="num">2,250.5</span> • Share <span class="num">25.57%</span> • Councillors <span class="num">5</span>
+                Avg <span class="num">2,250.5</span> • % of total members <span class="num">25.57%</span> • Councillors <span class="num">5</span>
               </p>
             </div>
           </div>
@@ -964,7 +978,7 @@
             <div class="rankMain">
               <p class="rankTitle">Professionals (Electorate 6)</p>
               <p class="rankMeta">
-                Avg <span class="num">750.5</span> • Share <span class="num">8.52%</span> • Councillors <span class="num">2</span>
+                Avg <span class="num">750.5</span> • % of total members <span class="num">8.52%</span> • Councillors <span class="num">2</span>
               </p>
             </div>
           </div>
@@ -974,7 +988,7 @@
             <div class="rankMain">
               <p class="rankTitle">Schools (Electorate 3)</p>
               <p class="rankMeta">
-                Avg <span class="num">400</span> • Share <span class="num">4.54%</span> • Councillors <span class="num">1</span>
+                Avg <span class="num">400</span> • % of total members <span class="num">4.54%</span> • Councillors <span class="num">1</span>
               </p>
             </div>
           </div>
@@ -984,7 +998,7 @@
             <div class="rankMain">
               <p class="rankTitle">Other (Electorate 8)</p>
               <p class="rankMeta">
-                Avg <span class="num">400</span> • Share <span class="num">4.54%</span> • Councillors <span class="num">1</span>
+                Avg <span class="num">400</span> • % of total members <span class="num">4.54%</span> • Councillors <span class="num">1</span>
               </p>
             </div>
           </div>
@@ -994,7 +1008,7 @@
       <!-- ✅ Updated bottom-line copy -->
       <div class="mega">
         <p class="megaK">Bottom line</p>
-        <p class="megaT">The ASO myth is busted, but has caused division, in reality: <span class="grad"><strong>Every Member Counts.</strong></span></p>
+        <p class="megaT">The ASO myth from PSA officials is busted, but has caused division, in reality: <span class="grad"><strong>Every Member Counts.</strong></span></p>
         <p class="megaP">
           So if any member speak up and get shut down, that’s not “low density”.
           That’s a <span class="grad"><strong>representation problem</strong></span>.
