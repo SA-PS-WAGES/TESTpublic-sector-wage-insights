@@ -35,82 +35,186 @@
     a:hover{ text-decoration:underline; }
     .wrap{ max-width:var(--max); margin:0 auto; padding: 18px 14px 28px; }
 
-    /* GoatCounter HUD */
+    /* Header */
     #gc-hud{
-      position: fixed; top: 10px; right: 12px; z-index: 10000;
-      display: inline-flex; align-items: center; justify-content: center;
-      padding: 6px 8px; min-height: 22px; max-width: 140px;
-      border: 1px solid rgba(255,255,255,.08);
-      background: rgba(11,18,32,.6);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      font-size: 10px; font-weight: 900; letter-spacing: .06em;
-      color: rgba(245,247,255,.9);
-      box-shadow: 0 6px 18px rgba(0,0,0,.22);
-      opacity: .88;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .18em;
+      color: rgba(245,247,255,.95);
+      opacity: .7;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      pointer-events: none;
+      white-space: nowrap;
       user-select: none;
     }
-    #gc-hud:hover{ opacity: 1; }
-    @media (max-width: 520px){
-      #gc-hud{ top: 74px; right: 12px; }
-    }
 
-    /* Topbar */
     .topbar{
-      display:flex; align-items:flex-start; justify-content:space-between;
-      gap:12px; padding: 12px 12px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding: 10px 12px;
       border:1px solid var(--line);
-      border-radius: 18px;
+      border-radius: 999px;
       background: rgba(255,255,255,.04);
       backdrop-filter: blur(8px);
       -webkit-backdrop-filter: blur(8px);
-      margin-bottom: 14px;
+      margin-bottom: 22px;
     }
-    .brand{ display:flex; align-items:flex-start; gap:10px; min-width:0; flex:1 1 auto; }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+    }
     .mark{
-      width:34px; height:34px; border-radius: 12px;
+      width:34px;
+      height:34px;
+      border-radius: 12px;
       background:
         radial-gradient(18px 18px at 30% 30%, rgba(110,231,255,.95), transparent 70%),
         radial-gradient(18px 18px at 70% 70%, rgba(167,139,250,.95), transparent 70%);
       border:1px solid rgba(255,255,255,.18);
       box-shadow: 0 10px 24px rgba(0,0,0,.35);
-      flex:0 0 auto; margin-top:2px;
+      flex:0 0 auto;
     }
     .brandname{
-      font-weight: 950;
-      letter-spacing: .1px;
+      font-weight: 850;
+      letter-spacing: .2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: rgba(245,247,255,.92);
       line-height: 1.15;
       font-size: 14px;
-      color: rgba(245,247,255,.92);
     }
-    .nav{ display:flex; gap:8px; flex-wrap:wrap; justify-content:flex-end; align-items:center; flex:0 0 auto; }
+    .nav{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      align-items:center;
+    }
     .pill{
-      display:inline-flex; align-items:center; justify-content:center;
-      padding: 10px 12px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding: 10px 14px;
       border-radius: 999px;
       border:1px solid var(--line);
       background: rgba(255,255,255,.03);
       color: var(--text);
-      font-size: 13px;
+      font-size: 14px;
       line-height: 1;
       white-space: nowrap;
       font-weight: 900;
       -webkit-tap-highlight-color: transparent;
     }
-    .pill strong{ color: var(--accent); font-weight: 950; letter-spacing: .2px; }
+    .pill strong{ color: var(--accent); font-weight: 900; letter-spacing: .2px; }
     .pill:hover{ background: rgba(255,255,255,.06); }
-    .pill.isActive{ border-color: rgba(110,231,255,.35); background: rgba(110,231,255,.08); }
-    @media (max-width: 520px){
-      .topbar{ flex-direction: column; align-items: stretch; gap: 10px; }
-      .nav{ width: 100%; justify-content: flex-start; }
-      .pill{ padding: 12px 14px; font-size: 14px; }
+    .menuPill{
+      position: relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-width: 180px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
     }
-    @media (min-width: 900px){
-      .wrap{ padding: 24px 16px 32px; }
-      .topbar{ border-radius: 999px; align-items:center; }
-      .brandname{ font-size: 15px; }
-      .pill{ font-size: 14px; padding: 10px 14px; }
+    .menu{ position: relative; z-index: 2; }
+    .menuButton{
+      list-style: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 900;
+      font-size: 13px;
+      color: var(--text);
+    }
+    .menuButton::-webkit-details-marker{ display:none; }
+    .menuButton::after{
+      content:"▾";
+      font-size: 11px;
+      color: var(--muted);
+    }
+    .menuList{
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      min-width: 220px;
+      padding: 10px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(7,10,18,.96);
+      box-shadow: 0 18px 40px rgba(0,0,0,.45);
+      display:flex;
+      flex-direction: column;
+      gap: 6px;
+      opacity: 0;
+      transform: translateY(-6px);
+      pointer-events: none;
+      transition: all .2s ease;
+    }
+    .menu[open] .menuList{
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .menuLink{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 8px 10px;
+      border-radius: 12px;
+      color: rgba(245,247,255,.9);
+      font-weight: 800;
+      font-size: 13px;
+      background: rgba(255,255,255,.02);
+      border: 1px solid transparent;
+    }
+    .menuLink:hover{
+      border-color: rgba(110,231,255,.3);
+      background: rgba(110,231,255,.08);
+      text-decoration:none;
+    }
+    .menuLink.isActive{
+      border-color: rgba(110,231,255,.45);
+      background: rgba(110,231,255,.12);
+      color: #fff;
+    }
+    @media (max-width: 720px){
+      .topbar{
+        border-radius: 22px;
+        padding: 12px;
+        gap: 12px;
+      }
+      .brand{ align-items:flex-start; }
+      .brandname{
+        white-space: normal;
+        overflow: visible;
+        text-overflow: unset;
+        line-height: 1.15;
+      }
+      .nav{
+        width: 100%;
+        justify-content: space-between;
+      }
+      .pill{ padding: 10px 12px; font-size: 13.5px; }
+      .menuPill{ flex: 1 1 auto; min-width: 0; }
+      .menuList{
+        left: 0;
+        right: 0;
+        min-width: 0;
+      }
     }
 
     .grad{
@@ -121,7 +225,7 @@
     }
 
     .hero{
-      padding: 18px 14px;
+      padding: 28px 18px;
       border-radius: var(--radius);
       border: 1px solid var(--line);
       background:
@@ -132,7 +236,9 @@
       overflow:hidden;
     }
     .tag{
-      display:inline-flex; align-items:center; gap:8px;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
       padding: 8px 11px;
       border-radius: 999px;
       border: 1px solid rgba(255,255,255,.12);
@@ -143,38 +249,79 @@
       font-size: 11.5px;
       color: rgba(245,247,255,.88);
     }
-    .h1{
-      margin: 10px 0 8px 0;
-      font-size: clamp(30px, 8vw, 54px);
+    .heroTitle{
+      margin: 12px 0 12px 0;
+      font-size: clamp(36px, 6vw, 64px);
       line-height: 1.02;
       letter-spacing: -1px;
       font-weight: 980;
     }
-    .sub{
+    .heroSub{
+      max-width: 90ch;
       margin: 0;
-      font-size: clamp(16px, 4.6vw, 20px);
+      font-size: clamp(16px, 1.6vw, 20px);
+      line-height: 1.4;
+      font-weight: 750;
+      color: rgba(245,247,255,.88);
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background:
+        radial-gradient(520px 180px at 20% 0%, rgba(110,231,255,.12), transparent 60%),
+        radial-gradient(520px 180px at 80% 0%, rgba(167,139,250,.12), transparent 60%),
+        rgba(255,255,255,.03);
+      box-shadow: 0 10px 24px rgba(0,0,0,.25);
+    }
+    .heroSub strong{
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color: transparent;
       font-weight: 900;
-      color: rgba(245,247,255,.90);
-      line-height: 1.35;
-      max-width: 70ch;
     }
 
     .section{
-      margin-top: 14px;
-      padding: 14px 12px;
+      margin-top: 18px;
+      padding: 18px;
       border-radius: var(--radius);
       border:1px solid var(--line);
       background: rgba(255,255,255,.03);
-      box-shadow: 0 10px 30px rgba(0,0,0,.16);
+      box-shadow: 0 10px 30px rgba(0,0,0,.18);
     }
-    .section h2{
-      margin: 0 0 6px 0;
-      font-size: clamp(20px, 5vw, 26px);
-      font-weight: 950;
-      letter-spacing: -.4px;
+    .sectionHead{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      flex-wrap:wrap;
+      gap:12px;
+      margin-bottom: 12px;
     }
-    .section p{ margin: 6px 0; color: rgba(245,247,255,.88); font-size: 15px; }
-
+    .sectionTitle{
+      margin: 0;
+      font-size: clamp(22px, 4.6vw, 32px);
+      font-weight: 980;
+      letter-spacing: -.5px;
+    }
+    .sectionTag{
+      font-size: 11px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: rgba(245,247,255,.7);
+      font-weight: 900;
+    }
+    .sectionLead{
+      margin: 0 0 12px 0;
+      font-size: 15.5px;
+      font-weight: 850;
+      color: rgba(245,247,255,.9);
+      max-width: 80ch;
+    }
+    .sectionGrid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 14px;
+      align-items: start;
+    }
     .bullets{
       margin: 10px 0 0 0;
       padding-left: 18px;
@@ -182,24 +329,63 @@
       font-weight: 700;
     }
     .bullets li{ margin: 6px 0; }
-
-    .mega{
+    .gText{
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      font-weight: 980;
+    }
+    .insightGrid{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
       margin-top: 12px;
+    }
+    .insightCard{
+      padding: 12px;
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.18);
+      box-shadow: 0 12px 24px rgba(0,0,0,.22);
+    }
+    .insightKicker{
+      margin: 0 0 6px 0;
+      font-size: 11px;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--muted);
+      font-weight: 900;
+    }
+    .insightTitle{
+      margin: 0;
+      font-size: 18px;
+      font-weight: 950;
+      letter-spacing: -.2px;
+    }
+    .insightText{
+      margin: 8px 0 0 0;
+      font-size: 14.5px;
+      color: rgba(245,247,255,.86);
+      line-height: 1.4;
+    }
+    .mega{
       border-radius: 16px;
       border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.18);
-      padding: 14px;
+      background:
+        radial-gradient(520px 180px at 20% 0%, rgba(110,231,255,.10), transparent 60%),
+        radial-gradient(520px 180px at 80% 0%, rgba(167,139,250,.10), transparent 60%),
+        rgba(0,0,0,.2);
+      padding: 16px;
       box-shadow: 0 14px 34px rgba(0,0,0,.22);
     }
     .megaK{ margin:0 0 6px 0; font-size: 12px; letter-spacing:.14em; text-transform:uppercase; color: rgba(245,247,255,.75); font-weight: 950;}
-    .megaT{ margin:0; font-size: clamp(22px, 6vw, 36px); font-weight: 980; letter-spacing:-.6px; line-height:1.06; }
+    .megaT{ margin:0; font-size: clamp(22px, 4.8vw, 34px); font-weight: 980; letter-spacing:-.6px; line-height:1.06; }
     .megaP{ margin: 10px 0 0 0; font-size: 15px; font-weight: 850; color: rgba(245,247,255,.88); }
   </style>
 </head>
 
 <body>
-  <div id="gc-hud" aria-hidden="true">Views: —</div>
-
   <div class="wrap">
     <div class="topbar">
       <div class="brand">
@@ -209,150 +395,262 @@
 
       <div class="nav">
         <a class="pill" href="index.html"><strong>Home</strong></a>
-        <a class="pill" href="voting-power.html"><strong>Voting Power</strong></a>
-        <a class="pill" href="methodology.html"><strong>Sources &amp; Method</strong></a>
-        <a class="pill isActive" href="financial-position.html"><strong>PSA Finances</strong></a>
+        <div class="menuPill">
+          <details class="menu">
+            <summary class="menuButton">Menu</summary>
+            <div class="menuList">
+              <a class="menuLink" href="voting-power.html">Voting Power</a>
+              <a class="menuLink" href="methodology.html">Sources &amp; Method</a>
+              <a class="menuLink isActive" href="financial-position.html">PSA Finances</a>
+              <a class="menuLink" href="union.html">Union &amp; Membership</a>
+            </div>
+          </details>
+          <div id="gc-hud" aria-hidden="true">Views: —</div>
+        </div>
       </div>
     </div>
 
     <section class="hero">
       <div class="tag">Financial Position</div>
-      <h1 class="h1"><span class="grad">PSA’s financial position</span> (last financial year)</h1>
-      <p class="sub">
-        At a basic level, a trade union should cover day-to-day operating costs from membership dues.
-        When that doesn’t happen, incentives start to shift.
+      <h1 class="heroTitle"><span class="grad">PSA financial position</span> in the last financial year</h1>
+      <p class="heroSub">
+        At a basic level, a trade union should cover day-to-day operating costs from member dues.
+        When that doesn’t happen, <strong>the incentive structure shifts</strong> toward safer options.
       </p>
     </section>
 
     <section class="section">
-      <h2>💰 What the operating budget should cover</h2>
-      <p>Membership dues should cover the baseline operating costs of a union, including:</p>
-      <ul class="bullets">
-        <li>Organisers</li>
-        <li>Admin</li>
-        <li>Legal support</li>
-        <li>Campaigning</li>
-      </ul>
-      <div class="mega">
-        <div class="megaK">What we know</div>
-        <p class="megaT">Dues did not fully cover operating costs.</p>
-        <p class="megaP">PSA relied on investment income to plug the gap and still ran at a loss last financial year.</p>
+      <div class="sectionHead">
+        <h2 class="sectionTitle"><span class="grad">Key financial insights</span></h2>
+        <div class="sectionTag">Snapshot</div>
+      </div>
+      <div class="insightGrid">
+        <div class="insightCard">
+          <p class="insightKicker">Coverage gap</p>
+          <p class="insightTitle"><span class="gText">Dues lagged</span> operating costs.</p>
+          <p class="insightText">Investment income filled the hole, yet the year still closed in loss.</p>
+        </div>
+        <div class="insightCard">
+          <p class="insightKicker">Incentive tilt</p>
+          <p class="insightTitle">Tight budgets reward <span class="gText">safe wins</span>.</p>
+          <p class="insightText">Recruitment can feel more reliable than high-stakes bargaining outcomes.</p>
+        </div>
+        <div class="insightCard">
+          <p class="insightKicker">Capitation cap</p>
+          <p class="insightTitle"><span class="gText">ASO5 limits</span> income growth.</p>
+          <p class="insightText">Above the cap, wage gains don’t grow upstream revenue the same way.</p>
+        </div>
       </div>
     </section>
 
     <section class="section">
-      <h2>🔁 How membership dues and capitation work</h2>
-      <p>Members pay dues as a percentage of wages. That money is split:</p>
-      <ul class="bullets">
-        <li>Some stays with PSA to operate.</li>
-        <li>Some is sent upstream as capitation.</li>
-      </ul>
-      <p><strong>Important clarification:</strong></p>
-      <ul class="bullets">
-        <li>Members do not pay capitation directly.</li>
-        <li>PSA pays capitation out of the dues members already pay.</li>
-      </ul>
-      <p>The incentive structure is simple:</p>
-      <ul class="bullets">
-        <li>More members bring in money straight away.</li>
-        <li>Higher wages bring in more money only if the fight is won.</li>
-      </ul>
+      <div class="sectionHead">
+        <h2 class="sectionTitle"><span class="grad">Operating coverage</span> and the gap</h2>
+        <div class="sectionTag">Budget basics</div>
+      </div>
+      <p class="sectionLead">Membership dues should fund the baseline union operations that keep members supported.</p>
+      <div class="sectionGrid">
+        <div>
+          <p>Core costs normally include:</p>
+          <ul class="bullets">
+            <li><span class="gText">Organising</span> and member support</li>
+            <li>Admin and office operations</li>
+            <li>Legal representation</li>
+            <li>Campaigning and advocacy</li>
+          </ul>
+        </div>
+        <div class="mega">
+          <div class="megaK">What we know</div>
+          <p class="megaT"><span class="gText">Dues did not fully cover</span> operating costs.</p>
+          <p class="megaP">Investment income bridged the gap, yet PSA still finished the year in deficit.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="sectionHead">
+        <h2 class="sectionTitle"><span class="grad">How dues and capitation</span> shape incentives</h2>
+        <div class="sectionTag">Funding flow</div>
+      </div>
+      <p class="sectionLead">
+        Members pay dues as a percentage of wages. That revenue is split, which shapes the choices leaders make.
+      </p>
+      <div class="sectionGrid">
+        <div>
+          <ul class="bullets">
+            <li>Some stays with PSA to run day-to-day operations.</li>
+            <li>Some flows upward as <span class="gText">capitation</span>.</li>
+          </ul>
+          <p><strong>Important clarification:</strong></p>
+          <ul class="bullets">
+            <li>Members do not pay capitation directly.</li>
+            <li>PSA pays capitation from the dues members already pay.</li>
+          </ul>
+        </div>
+        <div class="mega">
+          <div class="megaK">Incentive snapshot</div>
+          <p class="megaT">More members bring <span class="gText">immediate</span> revenue.</p>
+          <p class="megaP">Higher wages increase revenue only if the bargaining fight is won.</p>
+        </div>
+      </div>
       <p>When finances are tight, chasing headcount can feel like the safer option.</p>
     </section>
 
     <section class="section">
-      <h2>📊 The ASO5 cap and why it matters</h2>
-      <p>There’s another structural issue people don’t talk about much.</p>
-      <p>If capitation is capped at ASO5:</p>
-      <ul class="bullets">
-        <li>Pay rises above ASO5 don’t increase federal income.</li>
-        <li>Every additional member does.</li>
-      </ul>
-      <p>Once that cap is reached, the system naturally rewards membership growth over outcome quality.</p>
-      <p>This doesn’t mean bad faith. It means incentives start pointing in one direction.</p>
+      <div class="sectionHead">
+        <h2 class="sectionTitle"><span class="grad">The ASO5 cap</span> and why it matters</h2>
+        <div class="sectionTag">Structural pressure</div>
+      </div>
+      <p class="sectionLead">There is another structural lever that quietly shapes priorities.</p>
+      <div class="sectionGrid">
+        <div>
+          <p>If capitation is capped at ASO5:</p>
+          <ul class="bullets">
+            <li>Pay rises above ASO5 do <span class="gText">not</span> increase federal income.</li>
+            <li>Every additional member still does.</li>
+          </ul>
+        </div>
+        <div class="insightCard">
+          <p class="insightKicker">Resulting signal</p>
+          <p class="insightTitle">The system rewards <span class="gText">membership growth</span>.</p>
+          <p class="insightText">
+            Once the cap is reached, outcomes compete with recruitment for scarce attention.
+          </p>
+        </div>
+      </div>
+      <p>This doesn’t imply bad faith. It shows how incentives can pull strategy in one direction.</p>
     </section>
 
     <section class="section">
-      <h2>👀 What members have experienced</h2>
-      <p>From this bargaining round, many members have observed:</p>
-      <ul class="bullets">
-        <li>Limited support for industrial action across the majority.</li>
-        <li>Modest outcomes framed as wins.</li>
-        <li>Recruitment pressure pushed onto existing members.</li>
-        <li>Low density blamed when results fall short.</li>
-        <li>Frustration redirected into “next time” messaging.</li>
-      </ul>
-      <p>Pressure is being managed, rather than amplified.</p>
+      <div class="sectionHead">
+        <h2 class="sectionTitle"><span class="grad">What members have experienced</span></h2>
+        <div class="sectionTag">On the ground</div>
+      </div>
+      <p class="sectionLead">From this bargaining round, many members have observed:</p>
+      <div class="sectionGrid">
+        <div>
+          <ul class="bullets">
+            <li>Limited support for industrial action across the majority.</li>
+            <li>Modest outcomes framed as wins.</li>
+            <li>Recruitment pressure pushed onto existing members.</li>
+            <li>Low density blamed when results fall short.</li>
+            <li>Frustration redirected into “next time” messaging.</li>
+          </ul>
+        </div>
+        <div class="mega">
+          <div class="megaK">Member takeaway</div>
+          <p class="megaT">Pressure is being <span class="gText">managed</span>, not amplified.</p>
+          <p class="megaP">Momentum stalls when members feel risk is absorbed instead of backed.</p>
+        </div>
+      </div>
     </section>
 
     <section class="section">
-      <h2>⚖️ What strong union organising usually looks like</h2>
-      <p>For comparison, strong union strategy tends to involve:</p>
-      <ul class="bullets">
-        <li>Backing members willing to take lawful action.</li>
-        <li>Using disruption strategically to build leverage.</li>
-        <li>Being clear and consistent about goals.</li>
-        <li>Owning decisions and outcomes.</li>
-        <li>Growing membership off the back of success.</li>
-      </ul>
-      <p>That’s how confidence and power are built.</p>
+      <div class="sectionHead">
+        <h2 class="sectionTitle"><span class="grad">What strong organising</span> usually looks like</h2>
+        <div class="sectionTag">Comparison</div>
+      </div>
+      <p class="sectionLead">Strong union strategy tends to involve:</p>
+      <div class="sectionGrid">
+        <div>
+          <ul class="bullets">
+            <li>Backing members willing to take lawful action.</li>
+            <li>Using disruption strategically to build leverage.</li>
+            <li>Being clear and consistent about goals.</li>
+            <li>Owning decisions and outcomes.</li>
+            <li>Growing membership off the back of success.</li>
+          </ul>
+        </div>
+        <div class="insightCard">
+          <p class="insightKicker">Impact</p>
+          <p class="insightTitle">Confidence builds when <span class="gText">wins are visible</span>.</p>
+          <p class="insightText">That visibility compounds bargaining power and long-term engagement.</p>
+        </div>
+      </div>
     </section>
 
     <section class="section">
-      <h2>🏢 Why some members feel this looks like HR-style risk management</h2>
-      <p>Corporate HR functions are designed to:</p>
-      <ul class="bullets">
-        <li>Manage legal and reputational risk.</li>
-        <li>Minimise disruption.</li>
-        <li>Control costs.</li>
-        <li>Use careful language to shape expectations.</li>
-        <li>Absorb pressure into process.</li>
-      </ul>
-      <p>Some of the behaviour members are seeing feels closer to this approach:</p>
-      <ul class="bullets">
-        <li>Risk avoidance taking priority.</li>
-        <li>Disruption treated as something to limit.</li>
-        <li>Careful wording lowering expectations.</li>
-        <li>Accountability flowing downward.</li>
-      </ul>
+      <div class="sectionHead">
+        <h2 class="sectionTitle"><span class="grad">Why members see</span> HR-style risk management</h2>
+        <div class="sectionTag">Perception gap</div>
+      </div>
+      <p class="sectionLead">Corporate HR functions are designed to:</p>
+      <div class="sectionGrid">
+        <div>
+          <ul class="bullets">
+            <li>Manage legal and reputational risk.</li>
+            <li>Minimise disruption.</li>
+            <li>Control costs.</li>
+            <li>Use careful language to shape expectations.</li>
+            <li>Absorb pressure into process.</li>
+          </ul>
+        </div>
+        <div>
+          <p>Some behaviours members report feel closer to that approach:</p>
+          <ul class="bullets">
+            <li>Risk avoidance taking priority.</li>
+            <li>Disruption treated as something to limit.</li>
+            <li>Careful wording lowering expectations.</li>
+            <li>Accountability flowing downward.</li>
+          </ul>
+        </div>
+      </div>
       <p><strong>A trade union’s role should be different.</strong></p>
-      <p><strong>✊ A union exists to take risk on behalf of members, not pass it back to them.</strong></p>
+      <p><strong>A union exists to <span class="gText">take risk</span> on behalf of members, not pass it back to them.</strong></p>
     </section>
 
     <section class="section">
-      <h2>🚀 The missed strategic opportunity</h2>
-      <p>A stronger outcome this round wouldn’t just help members. It would strengthen the union itself.</p>
-      <p>Stronger outcomes mean:</p>
-      <ul class="bullets">
-        <li>Higher wages, so the same percentage brings in more revenue.</li>
-        <li>Operating costs better covered by dues.</li>
-        <li>Members stay because faith is restored.</li>
-        <li>New members join because they can see the value.</li>
-      </ul>
-      <p>The first lever is outcomes. The second lever is capitation:</p>
-      <ul class="bullets">
-        <li>Higher wages increase the value.</li>
-        <li>More members increase the volume.</li>
-      </ul>
+      <div class="sectionHead">
+        <h2 class="sectionTitle"><span class="grad">The missed strategic</span> opportunity</h2>
+        <div class="sectionTag">Levers</div>
+      </div>
+      <p class="sectionLead">
+        A stronger outcome this round would have helped members and <span class="gText">strengthened the union</span>.
+      </p>
+      <div class="sectionGrid">
+        <div>
+          <p>Stronger outcomes mean:</p>
+          <ul class="bullets">
+            <li>Higher wages, so the same percentage brings in more revenue.</li>
+            <li>Operating costs better covered by dues.</li>
+            <li>Members stay because faith is restored.</li>
+            <li>New members join because they can see the value.</li>
+          </ul>
+        </div>
+        <div class="mega">
+          <div class="megaK">Two levers</div>
+          <p class="megaT">Outcomes <span class="gText">and</span> capitation.</p>
+          <p class="megaP">Higher wages increase value. More members increase volume.</p>
+        </div>
+      </div>
       <p>Together, that strengthens influence and representation at a federal level.</p>
       <p>People don’t leave unions that deliver. They leave unions that manage decline.</p>
     </section>
 
     <section class="section">
-      <h2>❓ Where this leaves members</h2>
-      <p>Members didn’t fail PSA. Strategic choices were made.</p>
-      <p>Those choices appear to have prioritised:</p>
-      <ul class="bullets">
-        <li>Risk avoidance over leverage.</li>
-        <li>Stability over outcomes.</li>
-        <li>Numbers over member value.</li>
-      </ul>
-      <p>That’s why members are asking questions.</p>
-      <p>
-        Not to tear the union down, but because a not-for-profit trade union should be accountable to its
-        members and set up to fight for them.
-      </p>
-      <p>Asking for transparency and review is part of union democracy.</p>
+      <div class="sectionHead">
+        <h2 class="sectionTitle"><span class="grad">Where this leaves</span> members</h2>
+        <div class="sectionTag">Accountability</div>
+      </div>
+      <p class="sectionLead">Members didn’t fail PSA. Strategic choices were made.</p>
+      <div class="sectionGrid">
+        <div>
+          <p>Those choices appear to have prioritised:</p>
+          <ul class="bullets">
+            <li>Risk avoidance over leverage.</li>
+            <li>Stability over outcomes.</li>
+            <li>Numbers over member value.</li>
+          </ul>
+        </div>
+        <div class="insightCard">
+          <p class="insightKicker">Why it matters</p>
+          <p class="insightTitle">Members are asking for <span class="gText">transparency</span>.</p>
+          <p class="insightText">
+            A not-for-profit trade union should be accountable to members and set up to fight for them.
+          </p>
+        </div>
+      </div>
+      <p>Asking for review is part of union democracy.</p>
     </section>
   </div>
 </body>
