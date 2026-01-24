@@ -229,9 +229,11 @@
       }
       .menuPill{ flex: 1 1 auto; min-width: 0; }
       .menuList{
-        left: 0;
+        left: auto;
         right: 0;
-        min-width: 0;
+        min-width: 220px;
+        width: 240px;
+        max-width: 90vw;
       }
     }
 
@@ -620,15 +622,15 @@
     <div class="topbar">
       <div class="brand">
         <div class="mark" aria-hidden="true"></div>
-        <div class="brandname">SA Public Sector Salaried Employees Wage Insights (Public Data)</div>
+        <div class="brandname">EB25 It's <i>still</i> about pay</div>
       </div>
 
       <div class="nav">
-        <a class="pill" href="index.html"><strong>Home</strong></a>
         <div class="menuPill">
           <details class="menu">
             <summary class="menuButton">Menu</summary>
             <div class="menuList">
+              <a class="menuLink isActive" href="index.html">Home</a>
               <a class="menuLink" href="voting-power.html">Voting Power</a>
               <a class="menuLink" href="methodology.html">Sources &amp; Method</a>
               <a class="menuLink" href="financial-position.html">PSA Finances</a>

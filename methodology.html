@@ -16,7 +16,7 @@
       --accent2:#A78BFA;
       --radius:18px;
       --shadow: 0 14px 40px rgba(0,0,0,.35);
-      --max: 1200px;
+      --max: 1100px;
     }
 
     *{ box-sizing:border-box; }
@@ -29,13 +29,15 @@
         radial-gradient(900px 500px at 12% 10%, rgba(110,231,255,.20), transparent 60%),
         radial-gradient(700px 500px at 88% 0%, rgba(167,139,250,.22), transparent 55%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
-      line-height:1.5;
+      line-height:1.45;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
     a{ color:var(--accent); text-decoration:none; }
     a:hover{ text-decoration:underline; }
 
-    .wrap{ max-width:var(--max); margin:0 auto; padding: 48px 16px 28px; }
+    .wrap{ max-width:var(--max); margin:0 auto; padding: 48px 14px 28px; }
 
     /* Header */
     #gc-hud{
@@ -230,9 +232,11 @@
       }
       .menuPill{ flex: 1 1 auto; min-width: 0; }
       .menuList{
-        left: 0;
+        left: auto;
         right: 0;
-        min-width: 0;
+        min-width: 220px;
+        width: 240px;
+        max-width: 90vw;
       }
     }
 
@@ -453,15 +457,15 @@
     <div class="topbar">
       <div class="brand">
         <div class="mark" aria-hidden="true"></div>
-        <div class="brandname">SA Public Sector Salaried Employees Wage Insights (Public Data)</div>
+        <div class="brandname">EB25 It's <i>still</i> about pay</div>
       </div>
 
       <div class="nav">
-        <a class="pill" href="index.html"><strong>Home</strong></a>
         <div class="menuPill">
           <details class="menu">
             <summary class="menuButton">Menu</summary>
             <div class="menuList">
+              <a class="menuLink" href="index.html">Home</a>
               <a class="menuLink" href="voting-power.html">Voting Power</a>
               <a class="menuLink isActive" href="methodology.html">Sources &amp; Method</a>
               <a class="menuLink" href="financial-position.html">PSA Finances</a>
