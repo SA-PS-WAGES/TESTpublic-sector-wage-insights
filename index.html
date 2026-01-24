@@ -35,11 +35,12 @@
     a{ color:var(--accent); text-decoration:none; }
     a:hover{ text-decoration:underline; }
 
-    .wrap{ max-width:var(--max); margin:0 auto; padding: 28px 16px; }
+    .wrap{ max-width:var(--max); margin:0 auto; padding: 48px 16px 28px; }
 
     /* Header */
     #gc-hud{
-      position: absolute;
+      position: fixed;
+      top: 8px;
       left: 50%;
       transform: translateX(-50%);
       font-size: 10px;
@@ -53,6 +54,7 @@
       pointer-events: none;
       white-space: nowrap;
       user-select: none;
+      z-index: 20;
     }
 
     .topbar{
@@ -90,6 +92,7 @@
     .brandname{
       font-weight:850;
       letter-spacing:.2px;
+      padding-left: 6px;
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
@@ -101,6 +104,7 @@
       flex-wrap:wrap;
       justify-content:flex-end;
       align-items:center;
+      margin-left: auto;
     }
 
     .pill{
@@ -112,7 +116,7 @@
       border-radius: 999px;
       border:1px solid var(--line);
       background: rgba(255,255,255,.03);
-      color: var(--text);
+      color: var(--accent);
       font-size: 14px;
       line-height: 1;
       white-space: nowrap;
@@ -148,13 +152,13 @@
       gap: 6px;
       font-weight: 900;
       font-size: 13px;
-      color: var(--text);
+      color: var(--accent);
     }
     .menuButton::-webkit-details-marker{ display:none; }
     .menuButton::after{
       content:"▾";
       font-size: 11px;
-      color: var(--muted);
+      color: var(--accent);
     }
     .menuList{
       position: absolute;
@@ -185,7 +189,7 @@
       justify-content:space-between;
       padding: 8px 10px;
       border-radius: 12px;
-      color: rgba(245,247,255,.9);
+      color: var(--accent);
       font-weight: 800;
       font-size: 13px;
       background: rgba(255,255,255,.02);
@@ -199,7 +203,7 @@
     .menuLink.isActive{
       border-color: rgba(110,231,255,.45);
       background: rgba(110,231,255,.12);
-      color: #fff;
+      color: var(--accent);
     }
 
     @media (max-width: 720px){
@@ -611,6 +615,7 @@
 </head>
 
 <body>
+  <div id="gc-hud" aria-hidden="true">Views: —</div>
   <div class="wrap">
     <div class="topbar">
       <div class="brand">
@@ -630,7 +635,6 @@
               <a class="menuLink" href="union.html">Union &amp; Membership</a>
             </div>
           </details>
-          <div id="gc-hud" aria-hidden="true">Views: —</div>
         </div>
       </div>
     </div>
