@@ -16,7 +16,7 @@
       --accent2:#A78BFA;
       --radius:18px;
       --shadow: 0 14px 40px rgba(0,0,0,.35);
-      --max: 1200px;
+      --max: 1100px;
     }
 
     *{ box-sizing:border-box; }
@@ -29,7 +29,9 @@
         radial-gradient(900px 500px at 12% 10%, rgba(110,231,255,.20), transparent 60%),
         radial-gradient(700px 500px at 88% 0%, rgba(167,139,250,.22), transparent 55%),
         linear-gradient(180deg, var(--bg0), var(--bg1));
-      line-height:1.5;
+      line-height:1.45;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
     }
 
     a{ color:var(--accent); text-decoration:none; }
@@ -38,9 +40,24 @@
     .wrap{ max-width:var(--max); margin:0 auto; padding: 48px 16px 28px; }
 
     /* Header */
+    .topbar{
+      position: relative;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding: 10px 12px;
+      border:1px solid var(--line);
+      border-radius: 999px;
+      background: rgba(255,255,255,.04);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      margin-bottom: 22px;
+    }
+
     #gc-hud{
-      position: fixed;
-      top: 8px;
+      position: absolute;
+      top: -12px;
       left: 50%;
       transform: translateX(-50%);
       font-size: 10px;
@@ -54,21 +71,7 @@
       pointer-events: none;
       white-space: nowrap;
       user-select: none;
-      z-index: 20;
-    }
-
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:14px;
-      padding: 10px 12px;
-      border:1px solid var(--line);
-      border-radius: 999px;
-      background: rgba(255,255,255,.04);
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
-      margin-bottom: 22px;
+      z-index: 2;
     }
 
     .brand{
@@ -96,6 +99,9 @@
       white-space:nowrap;
       overflow:hidden;
       text-overflow:ellipsis;
+      color: rgba(245,247,255,.92);
+      line-height: 1.15;
+      font-size: 18px;
     }
 
     .nav{
@@ -151,13 +157,13 @@
       align-items: center;
       gap: 6px;
       font-weight: 900;
-      font-size: 13px;
+      font-size: 15px;
       color: var(--accent);
     }
     .menuButton::-webkit-details-marker{ display:none; }
     .menuButton::after{
       content:"▾";
-      font-size: 11px;
+      font-size: 12px;
       color: var(--accent);
     }
     .menuList{
@@ -218,16 +224,23 @@
       }
       .brand{ align-items: flex-start; }
       .brandname{
-        white-space: normal;
-        overflow: visible;
-        text-overflow: unset;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
         line-height: 1.15;
+        font-size: 13px;
       }
       .nav{
-        width: 100%;
-        justify-content: space-between;
+        width: auto;
+        justify-content: flex-end;
       }
-      .menuPill{ flex: 1 1 auto; min-width: 0; }
+      .menuPill{
+        flex: 0 0 auto;
+        min-width: 0;
+        padding: 6px 10px;
+      }
+      .menuButton{ font-size: 12px; }
+      .menuButton::after{ font-size: 10px; }
       .menuList{
         left: auto;
         right: 0;
@@ -336,6 +349,34 @@
 
     @media (max-width: 520px){
       iframe{ height: 78vh; min-height: 560px; }
+    }
+
+    /* Footer */
+    .footer{
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      text-align: center;
+      box-shadow: 0 10px 24px rgba(0,0,0,.18);
+    }
+    .backToTop{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(110,231,255,.4);
+      background: rgba(110,231,255,.12);
+      color: var(--accent);
+      font-weight: 900;
+      letter-spacing: .2px;
+      text-decoration: none;
+    }
+    .backToTop:hover{
+      background: rgba(110,231,255,.2);
+      text-decoration: none;
     }
 
     /* ======================================================
@@ -616,10 +657,10 @@
   </style>
 </head>
 
-<body>
-  <div id="gc-hud" aria-hidden="true">Views: —</div>
+<body id="top">
   <div class="wrap">
     <div class="topbar">
+      <div id="gc-hud" aria-hidden="true">Views: —</div>
       <div class="brand">
         <div class="mark" aria-hidden="true"></div>
         <div class="brandname">EB25 It's <i>still</i> about pay</div>
@@ -769,6 +810,10 @@
         </p>
       </div>
     </section>
+
+    <footer class="footer">
+      <a class="backToTop" href="#top">Back to top</a>
+    </footer>
   </div>
 
   <script>
@@ -876,6 +921,24 @@
 
     document.getElementById("btnCalc").addEventListener("click", calculate);
     document.getElementById("btnClear").addEventListener("click", clearAll);
+  </script>
+
+  <script>
+    document.addEventListener('click', (event) => {
+      document.querySelectorAll('details.menu[open]').forEach((menu) => {
+        if (!menu.contains(event.target)) {
+          menu.removeAttribute('open');
+        }
+      });
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        document.querySelectorAll('details.menu[open]').forEach((menu) => {
+          menu.removeAttribute('open');
+        });
+      }
+    });
   </script>
 
   <script data-goatcounter="https://sa-ps-wages.goatcounter.com/count"
