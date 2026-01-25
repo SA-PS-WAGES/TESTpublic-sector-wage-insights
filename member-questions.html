@@ -17,6 +17,11 @@
       --radius:18px;
       --shadow: 0 14px 40px rgba(0,0,0,.35);
       --max: 1100px;
+
+      /* extra helpers */
+      --glass: rgba(255,255,255,.03);
+      --glass2: rgba(255,255,255,.04);
+      --dark: rgba(0,0,0,.18);
     }
     *{ box-sizing:border-box; }
     body{
@@ -34,6 +39,23 @@
     a{ color:var(--accent); text-decoration:none; }
     a:hover{ text-decoration:underline; }
     .wrap{ max-width:var(--max); margin:0 auto; padding: 32px 14px 28px; }
+
+    /* === GRADIENT / EMPHASIS (your “mega hero” vibe) === */
+    .grad{
+      background: linear-gradient(92deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+    .hi{
+      background: linear-gradient(92deg, var(--accent), var(--accent2));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color: transparent;
+      font-weight: 950;
+    }
+    .k{ color: var(--accent); font-weight: 950; }
+    .k2{ color: rgba(167,139,250,.95); font-weight: 950; }
 
     /* Header */
     .topbar{
@@ -218,6 +240,7 @@
       color: var(--accent);
     }
 
+    /* Hero */
     .hero{
       margin-top: 0;
       padding: 18px 14px;
@@ -251,12 +274,6 @@
       letter-spacing: -1px;
       font-weight: 980;
     }
-    .grad{
-      background: linear-gradient(92deg, var(--accent), var(--accent2));
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
     .sub{
       margin: 0;
       font-size: clamp(18px, 4.8vw, 22px);
@@ -265,8 +282,15 @@
       line-height: 1.45;
       max-width: 70ch;
     }
+    .sub strong{
+      font-weight: 980;
+      background: linear-gradient(92deg, var(--accent), var(--accent2));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color: transparent;
+    }
 
-    /* Sections (less busy) */
+    /* Sections */
     .section{
       margin-top: 14px;
       padding: 14px 12px;
@@ -281,23 +305,111 @@
       margin-top: 12px;
       border-radius: 16px;
       border: 1px solid rgba(255,255,255,.14);
-      background: rgba(0,0,0,.18);
+      background:
+        radial-gradient(520px 180px at 18% 0%, rgba(110,231,255,.10), transparent 62%),
+        radial-gradient(520px 180px at 82% 0%, rgba(167,139,250,.10), transparent 62%),
+        rgba(0,0,0,.18);
       padding: 14px;
       box-shadow: 0 14px 34px rgba(0,0,0,.22);
     }
-    .megaK{ margin:0 0 8px 0; font-size: 13px; letter-spacing:.14em; text-transform:uppercase; color: rgba(245,247,255,.75); font-weight: 950;}
-    .megaT{ margin:0; font-size: clamp(28px, 7vw, 48px); font-weight: 990; letter-spacing:-.8px; line-height:1.05; }
-    .megaP{ margin: 12px 0 0 0; font-size: clamp(16px, 4.2vw, 20px); font-weight: 850; color: rgba(245,247,255,.9); line-height: 1.55; }
+    .megaK{
+      margin:0 0 8px 0;
+      font-size: 13px;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      color: rgba(245,247,255,.75);
+      font-weight: 950;
+    }
+    .megaT{
+      margin:0;
+      font-size: clamp(28px, 7vw, 48px);
+      font-weight: 990;
+      letter-spacing:-.8px;
+      line-height:1.05;
+    }
+    /* title gradient “pop” */
+    .megaT .pop{
+      background: linear-gradient(92deg, var(--accent), var(--accent2));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color: transparent;
+    }
+    .megaP{
+      margin: 12px 0 0 0;
+      font-size: clamp(16px, 4.2vw, 20px);
+      font-weight: 850;
+      color: rgba(245,247,255,.9);
+      line-height: 1.55;
+    }
+    .megaP strong{
+      background: linear-gradient(92deg, var(--accent), var(--accent2));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color: transparent;
+      font-weight: 980;
+    }
 
+    /* Bullets -> nicer, more readable + numbered option */
     .bullets{
-      margin: 12px 0 0 18px;
-      padding: 0;
+      margin: 12px 0 0 0;
+      padding-left: 18px;
       color: rgba(245,247,255,.9);
       font-size: clamp(16px, 4vw, 20px);
-      line-height: 1.55;
+      line-height: 1.65;
       font-weight: 850;
     }
-    .bullets li{ margin: 8px 0; }
+    .bullets li{ margin: 10px 0; }
+    /* give list items subtle “card” rhythm */
+    .bullets li{
+      padding: 8px 10px;
+      border-radius: 14px;
+      background: rgba(255,255,255,.02);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+
+    /* Numbered list styling (for campaign promises) */
+    .promises{
+      counter-reset: item;
+      list-style: none;
+      padding-left: 0;
+      margin: 12px 0 0 0;
+    }
+    .promises li{
+      counter-increment: item;
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 10px;
+      align-items: start;
+      margin: 10px 0;
+      padding: 10px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(0,0,0,.14);
+    }
+    .promises li::before{
+      content: counter(item);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      border: 1px solid rgba(255,255,255,.14);
+      background:
+        radial-gradient(220px 90px at 20% 0%, rgba(110,231,255,.16), transparent 60%),
+        radial-gradient(220px 90px at 80% 0%, rgba(167,139,250,.16), transparent 60%),
+        rgba(255,255,255,.03);
+      color: rgba(245,247,255,.95);
+      font-weight: 990;
+      font-variant-numeric: tabular-nums;
+    }
+    .promises li strong{
+      background: linear-gradient(92deg, var(--accent), var(--accent2));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color: transparent;
+      font-weight: 980;
+    }
 
     .footerLink{
       margin-top: 12px;
@@ -377,6 +489,8 @@
         width: 240px;
         max-width: 90vw;
       }
+      .promises li{ grid-template-columns: 30px 1fr; }
+      .promises li::before{ width:30px; height:30px; border-radius: 11px; }
     }
   </style>
 </head>
@@ -419,18 +533,20 @@
 
       <p class="sub">
         Across the salaried public sector, many members are beginning to ask a simple but reasonable question:
-        <span class="grad"><strong>Why does the bargaining strategy, industrial focus, and internal power structure of the PSA appear to prioritise a minority cohort, while larger workforces experience weaker outcomes and limited mobilisation?</strong></span>
+        <strong>Why does the bargaining strategy, industrial focus, and internal power structure of the PSA appear to prioritise a minority cohort, while larger workforces experience weaker outcomes and limited mobilisation?</strong>
         <br><br>
-        This is not about personalities or internal factions. It is about structure, proportionality, and whether the union is operating in the interests of its full membership base.
+        This is not about personalities or internal factions. It is about <span class="hi">structure</span>, <span class="hi">proportionality</span>, and whether the union is operating in the interests of its <span class="hi">full membership base</span>.
       </p>
     </section>
 
     <section class="section">
       <div class="mega">
         <p class="megaK">Representation</p>
-        <h2 class="megaT">How representation is currently structured</h2>
+        <h2 class="megaT"><span class="pop">How representation</span> is currently structured</h2>
         <p class="megaP">
-          Under the current PSA structure, members are grouped into electorates and represented through electorate-based Branch Councillors and an Executive Council elected from within those councillors. In principle, this system is designed to scale representation in line with membership numbers and ensure fairness across diverse workforces. In practice, however, the way electorates are grouped — particularly within the OPS stream — has created a concentration of representation that does not reflect the broader salaried workforce.
+          Under the current PSA structure, members are grouped into electorates and represented through electorate-based Branch Councillors and an Executive Council elected from within those councillors.
+          In principle, this system is designed to scale representation in line with membership numbers and ensure fairness across diverse workforces.
+          In practice, however, the way electorates are grouped — particularly within the OPS stream — has created a <strong>concentration of representation</strong> that does not reflect the broader salaried workforce.
         </p>
       </div>
     </section>
@@ -438,28 +554,28 @@
     <section class="section">
       <div class="mega">
         <p class="megaK">OPS Electorate</p>
-        <h2 class="megaT">The OPS electorate and disproportionate influence</h2>
+        <h2 class="megaT">The OPS electorate and <span class="pop">disproportionate influence</span></h2>
         <p class="megaP">
           Correctional Officers are currently grouped within the OPS electorate, despite being a highly concentrated workforce largely contained within a single department (DCS) and operating under unique industrial conditions that differ from most OPS members. As a result:
         </p>
         <ul class="bullets">
-          <li>All OPS councillor positions are held by DCS-based Correctional Officers.</li>
-          <li>This concentration has flowed through to Executive Council representation.</li>
-          <li>Strategic priorities have increasingly aligned with Correctional Officer bargaining objectives.</li>
+          <li><span class="k">All OPS councillor positions</span> are held by DCS-based members.</li>
+          <li>This concentration has flowed through to <span class="k2">Executive Council representation</span>.</li>
+          <li>Strategic priorities have increasingly aligned with <span class="k">Correctional Officer bargaining objectives</span>.</li>
         </ul>
-        <p class="megaP">This has occurred not because of wrongdoing, but because the structure itself allows it.</p>
+        <p class="megaP">This has occurred not because of wrongdoing, but because the <strong>structure itself allows it</strong>.</p>
       </div>
     </section>
 
     <section class="section">
       <div class="mega">
         <p class="megaK">Democratic fairness</p>
-        <h2 class="megaT">Why this matters for democratic fairness</h2>
+        <h2 class="megaT">Why this matters for <span class="pop">democratic fairness</span></h2>
         <p class="megaP">When a single, highly organised cohort dominates an electorate:</p>
         <ul class="bullets">
-          <li>Other OPS members lose meaningful representation.</li>
-          <li>Broader OPS priorities struggle to surface.</li>
-          <li>Executive decision-making risks reflecting density, not scale.</li>
+          <li>Other OPS members lose <span class="k">meaningful representation</span>.</li>
+          <li>Broader OPS priorities struggle to <span class="k2">surface</span>.</li>
+          <li>Executive decision-making risks reflecting <span class="k">density</span>, not <span class="k2">scale</span>.</li>
         </ul>
         <p class="megaP">
           Meanwhile, large salaried workforces — particularly ASO and Health-based roles — are fragmented across electorates despite having higher total headcount, greater public-facing impact, and significantly stronger industrial leverage. This raises legitimate questions about whether electorate grouping is still fit for purpose.
@@ -470,21 +586,23 @@
     <section class="section">
       <div class="mega">
         <p class="megaK">Industrial leverage</p>
-        <h2 class="megaT">Industrial strategy and leverage: a mismatch</h2>
+        <h2 class="megaT">Industrial strategy and leverage: <span class="pop">a mismatch</span></h2>
         <p class="megaP">Recent industrial action highlights a deeper issue.</p>
         <ul class="bullets">
-          <li>Correctional Officers undertook prolonged industrial action.</li>
-          <li>They experienced limited public or political pressure.</li>
-          <li>Outcomes were modest relative to effort.</li>
+          <li>Correctional Officers undertook <span class="k">prolonged industrial action</span>.</li>
+          <li>They experienced <span class="k2">limited public or political pressure</span>.</li>
+          <li>Outcomes were <span class="k">modest at best</span> relative to effort.</li>
         </ul>
         <p class="megaP">By contrast, larger salaried workforces include:</p>
         <ul class="bullets">
           <li>Hospital ward clerks and outpatient staff.</li>
           <li>SAPOL and Service SA customer service officers.</li>
-          <li>Front-facing administrative and operational roles across government.</li>
+          <li><strong>Front-facing administrative and operational roles that span across the entire public sector.</strong></li>
         </ul>
         <p class="megaP">
-          These roles directly affect service delivery, carry higher public visibility, and represent a far stronger industrial lever. Yet they were not mobilised at scale, and in some cases, were actively discouraged from action. Members are entitled to ask why.
+          These roles directly affect service delivery, carry higher public visibility, and represent a <strong>far stronger industrial lever</strong>.<br>
+          Yet they were not mobilised at scale, and in some cases, <strong>were actively discouraged from action</strong>.<br>
+		  <p class="megaT">Members are entitled to ask why.</p>
         </p>
       </div>
     </section>
@@ -492,16 +610,16 @@
     <section class="section">
       <div class="mega">
         <p class="megaK">Intent</p>
-        <h2 class="megaT">This is not about smear or blame</h2>
+        <h2 class="megaT">This is not about <span class="pop">smear or blame</span></h2>
         <p class="megaP">Members are not seeking reform through accusation or internal division. This inquiry is grounded in good governance:</p>
         <ul class="bullets">
-          <li>Transparency.</li>
-          <li>Proportional representation.</li>
-          <li>Ethical bargaining strategy.</li>
-          <li>Accountability to stated commitments.</li>
+          <li><span class="k">Transparency</span>.</li>
+          <li><span class="k2">Proportional representation</span>.</li>
+          <li><span class="k">Ethical bargaining strategy</span>.</li>
+          <li><span class="k2">Accountability to stated commitments</span>.</li>
         </ul>
         <p class="megaP">
-          The question is not who is in leadership. The question is whether the system itself is producing fair outcomes.
+          The question is not who is in leadership. The question is whether the system itself is producing <strong>fair outcomes</strong>.
         </p>
       </div>
     </section>
@@ -509,12 +627,12 @@
     <section class="section">
       <div class="mega">
         <p class="megaK">Commitments</p>
-        <h2 class="megaT">Why commitments matter</h2>
+        <h2 class="megaT">Why <span class="pop">commitments</span> matter</h2>
         <p class="megaP">
           During the PSA Change campaign, members were presented with clear commitments across classification reform, wage growth, separate agreements for distinct cohorts, and improved conditions and allowances. These commitments were decisive for many voters.
         </p>
         <p class="megaP">
-          If circumstances have changed, members deserve clear outcomes, evidence-based explanations, and justification for any shift in position. That is the foundation of trust in a democratic organisation.
+          If circumstances have changed, members deserve <strong>clear outcomes</strong>, <strong>evidence-based explanations</strong>, and justification for any shift in position. That is the foundation of trust in a democratic organisation.
         </p>
       </div>
     </section>
@@ -522,15 +640,16 @@
     <section class="section">
       <div class="mega">
         <p class="megaK">Campaign promises</p>
-        <h2 class="megaT">Commitments members are asking to be accounted for</h2>
+        <h2 class="megaT">Commitments members are asking to be <span class="pop">accounted for</span></h2>
         <p class="megaP">The following commitments were publicly made during the PSA Change campaign and form the basis of this inquiry:</p>
-        <ul class="bullets">
+
+        <!-- ✅ numbered + easier to read -->
+        <ol class="promises">
           <li>Improved classification streams and new increments across OPS, ASO, CO and PO classifications.</li>
           <li>OPS1 to be trainee-only, with new increments for OPS2 and OPS3.</li>
           <li>New increments for CO3, PO3, ASO2, ASO3 and ASO6.</li>
           <li>Automatic progression from CO2 to CO3 on completion of Certificate IV.</li>
           <li>Operational Supervisor classification at CO5 (not CO4).</li>
-          <li>Separate enterprise agreement for Allied Health Professionals.</li>
           <li>Separate enterprise agreement for Correctional Officers and ICU.</li>
           <li>Up to 20% wage increase in the first 12 months, backdated to October 2024.</li>
           <li>Conversion to permanency clause.</li>
@@ -545,25 +664,25 @@
           <li>20% Officer-in-Charge allowance.</li>
           <li>Improved on-call and recall provisions (annualised allowance).</li>
           <li>Health-site parking caps or free public transport access.</li>
-          <li>A formal offer received within a reasonable timeframe before the ballot opens or;</li>
-          <li>The decision to ballot rescinded and moved to a separate SGM to decide whether to resume bargaining.</li>
-        </ul>
-        <p class="megaP">Members are simply asking: what was delivered, what wasn’t, and why?</p>
+          <li>A formal offer received within a reasonable timeframe before the ballot opens, and if not, what actions is PSA taking to ensure the integrity of the democratic process.
+        </ol>
+
+        <p class="megaP">Members are simply asking: <span class="hi">what has been delivered</span>, <span class="hi">what hasn't</span>, and <span class="hi">why</span>?</p>
       </div>
     </section>
 
     <section class="section">
       <div class="mega">
         <p class="megaK">Bigger picture</p>
-        <h2 class="megaT">The bigger picture</h2>
+        <h2 class="megaT">The bigger <span class="pop">picture</span></h2>
         <ul class="bullets">
-          <li>No minority cohort holds structural dominance.</li>
-          <li>No electorate is functionally silenced.</li>
-          <li>Industrial strategy reflects real leverage.</li>
-          <li>Commitments are honoured or transparently explained.</li>
+          <li>No minority cohort holds <span class="k">structural dominance</span>.</li>
+          <li>No electorate is functionally <span class="k2">silenced</span>.</li>
+          <li>Industrial strategy reflects <span class="k">real leverage</span>.</li>
+          <li>Commitments are honoured or <span class="k2">transparently explained</span>.</li>
         </ul>
         <p class="megaP">
-          Ultimately, this is about restoring confidence that the PSA is a member-controlled union — in practice, not just in name.
+          Ultimately, this is about restoring confidence that the PSA is a member-controlled union, in practice, not just in name.
         </p>
       </div>
     </section>
@@ -571,28 +690,28 @@
     <section class="section">
       <div class="mega">
         <p class="megaK">Requisition</p>
-        <h2 class="megaT">How the requisition process works</h2>
+        <h2 class="megaT">How the requisition process <span class="pop">works</span></h2>
         <p class="megaP">
           To formally request transparency and disclosure, members are using a Special General Meeting (SGM) requisition in accordance with PSA rules.
         </p>
         <ul class="bullets">
-          <li>Only current, financial PSA members are eligible to sign the requisition.</li>
+          <li><strong>Only current, financial PSA members are eligible to sign the requisition.</strong></li>
           <li>Each signature must be genuine and provided by the member themselves.</li>
-          <li>Once a meaningful number of signatures has been collected, members are encouraged to coordinate with trusted colleagues or existing member groups (where you are already connected) to consolidate signed requisition pages.</li>
+          <li>Once a meaningful number of signatures has been collected, members are encouraged to coordinate with trusted colleagues or <strong>existing member groups (where you are already connected)</strong> to consolidate signed requisition pages.</li>
           <li>Consolidated requisitions can then be submitted together to ensure they are formally recognised and progressed in line with PSA governance processes.</li>
         </ul>
         <p class="megaP">This approach ensures the request is:</p>
         <ul class="bullets">
-          <li>Member-led.</li>
-          <li>Rule-compliant.</li>
-          <li>Transparent.</li>
-          <li>Collective, not individual.</li>
+          <li><span class="k">Member-led</span>.</li>
+          <li><span class="k2">Rule-compliant</span>.</li>
+          <li><span class="k">Transparent</span>.</li>
+          <li><span class="k2">Collective, not individual</span>.</li>
         </ul>
         <p class="megaP">
           The objective is not confrontation, but to enable members to make informed decisions based on full and accurate information.
         </p>
         <p class="footerLink">
-          <a href="/assets/downloads/psa-sgm-requisition-final-v3" download>Download a copy of the requisition template here</a>
+          <a href="/assets/downloads/psa-sgm-requisition-final-v3.pdf" download>Download a copy of the requisition template here</a>
         </p>
       </div>
     </section>
@@ -605,9 +724,7 @@
   <script>
     document.addEventListener('click', (event) => {
       document.querySelectorAll('details.menu[open]').forEach((menu) => {
-        if (!menu.contains(event.target)) {
-          menu.removeAttribute('open');
-        }
+        if (!menu.contains(event.target)) menu.removeAttribute('open');
       });
     });
 
