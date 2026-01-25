@@ -1,0 +1,838 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>EB25: It's still about pay - The Current (draft) Offer</title>
+
+  <style>
+    :root{
+      --bg0:#070A12;
+      --bg1:#0B1220;
+      --line:rgba(255,255,255,.10);
+      --text:#F5F7FF;
+      --muted:rgba(245,247,255,.72);
+      --accent:#6EE7FF;
+      --accent2:#A78BFA;
+      --radius:18px;
+      --shadow: 0 14px 40px rgba(0,0,0,.35);
+      --max: 1100px;
+      --good:#4ADE80;
+      --warn:#FBBF24;
+      --bad:#F87171;
+    }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(900px 500px at 12% 10%, rgba(110,231,255,.20), transparent 60%),
+        radial-gradient(700px 500px at 88% 0%, rgba(167,139,250,.22), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1));
+      line-height:1.45;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    a{ color:var(--accent); text-decoration:none; }
+    a:hover{ text-decoration:underline; }
+    .wrap{ max-width:var(--max); margin:0 auto; padding: 32px 14px 28px; }
+
+    /* Header */
+    .topbar{
+      position: relative;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      padding:10px 12px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.04);
+      backdrop-filter:blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      margin-bottom:22px;
+    }
+
+    #gc-hud{
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 10px;
+      font-weight: 900;
+      letter-spacing: .18em;
+      color: rgba(245,247,255,.95);
+      opacity: .7;
+      background: transparent;
+      border: 0;
+      box-shadow: none;
+      pointer-events: none;
+      white-space: nowrap;
+      user-select: none;
+      z-index: 2;
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+    }
+    .mark{
+      width:34px;
+      height:34px;
+      border-radius:12px;
+      background:
+        radial-gradient(18px 18px at 30% 30%, rgba(110,231,255,.95), transparent 70%),
+        radial-gradient(18px 18px at 70% 70%, rgba(167,139,250,.95), transparent 70%);
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow:0 10px 24px rgba(0,0,0,.35);
+      flex:0 0 auto;
+    }
+    .brandname{
+      font-weight:850;
+      letter-spacing:.2px;
+      padding-left: 6px;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      color: rgba(245,247,255,.92);
+      line-height:1.15;
+      font-size: 18px;
+    }
+    .nav{
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:flex-end;
+      align-items:center;
+      margin-left: auto;
+    }
+    .homePill{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:36px;
+      height:36px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color: var(--accent);
+      flex:0 0 auto;
+    }
+    .homePill svg{
+      width:16px;
+      height:16px;
+      fill: currentColor;
+    }
+    .homePill:hover{
+      background: rgba(255,255,255,.06);
+      text-decoration:none;
+    }
+    .menuPill{
+      position: relative;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-width: 180px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+    }
+    .menu{ position: relative; z-index: 2; }
+    .menuButton{
+      list-style: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 900;
+      font-size: 15px;
+      color: var(--accent);
+    }
+    .menuButton::-webkit-details-marker{ display:none; }
+    .menuButton::after{
+      content:"▾";
+      font-size: 12px;
+      color: var(--accent);
+    }
+    .menuList{
+      position: absolute;
+      top: calc(100% + 10px);
+      right: 0;
+      min-width: 220px;
+      padding: 10px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(7,10,18,.96);
+      box-shadow: 0 18px 40px rgba(0,0,0,.45);
+      display:flex;
+      flex-direction: column;
+      gap: 6px;
+      opacity: 0;
+      transform: translateY(-6px);
+      pointer-events: none;
+      transition: all .2s ease;
+    }
+    .menu[open] .menuList{
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+    .menuLink{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding: 8px 10px;
+      border-radius: 12px;
+      color: var(--accent);
+      font-weight: 800;
+      font-size: 13px;
+      background: rgba(255,255,255,.02);
+      border: 1px solid transparent;
+    }
+    .menuLink:hover{
+      border-color: rgba(110,231,255,.3);
+      background: rgba(110,231,255,.08);
+      text-decoration:none;
+    }
+    .menuLink.isActive{
+      border-color: rgba(110,231,255,.45);
+      background: rgba(110,231,255,.12);
+      color: var(--accent);
+    }
+    @media (max-width: 720px){
+      .topbar{
+        border-radius:22px;
+        padding:12px;
+        gap:12px;
+      }
+      .brand{ align-items:flex-start; }
+      .brandname{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.15;
+        font-size: 13px;
+      }
+      .nav{ width: auto; justify-content: flex-end; }
+      .menuPill{ flex: 0 0 auto; min-width: 0; padding: 6px 10px; }
+      .homePill{ width:32px; height:32px; }
+      .homePill svg{ width:14px; height:14px; }
+      .menuButton{ font-size: 12px; }
+      .menuButton::after{ font-size: 10px; }
+      .menuList{
+        left: auto;
+        right: 0;
+        min-width: 220px;
+        width: 240px;
+        max-width: 90vw;
+      }
+    }
+
+    .grad{
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      -webkit-background-clip:text;
+      background-clip:text;
+      color: transparent;
+    }
+
+    /* HERO */
+    .hero{
+      padding: 18px 14px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(900px 240px at 20% 0%, rgba(110,231,255,.16), transparent 55%),
+        radial-gradient(900px 240px at 80% 0%, rgba(167,139,250,.16), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      box-shadow: var(--shadow);
+      overflow:hidden;
+    }
+    .tag{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 11px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.16);
+      font-weight: 950;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-size: 11.5px;
+      color: rgba(245,247,255,.88);
+    }
+    .h1{
+      margin: 10px 0 8px 0;
+      font-size: clamp(30px, 8vw, 54px);
+      line-height: 1.02;
+      letter-spacing: -1px;
+      font-weight: 980;
+    }
+    .sub{
+      margin: 0;
+      font-size: clamp(16px, 4.6vw, 20px);
+      font-weight: 900;
+      color: rgba(245,247,255,.90);
+      line-height: 1.35;
+      max-width: 70ch;
+    }
+
+    /* Sections */
+    .section{
+      margin-top: 14px;
+      padding: 14px 12px;
+      border-radius: var(--radius);
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      box-shadow: 0 10px 30px rgba(0,0,0,.16);
+    }
+
+    /* Callouts */
+    .mega{
+      margin-top: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(0,0,0,.18);
+      padding: 14px;
+      box-shadow: 0 14px 34px rgba(0,0,0,.22);
+    }
+    .megaK{ margin:0 0 6px 0; font-size: 12px; letter-spacing:.14em; text-transform:uppercase; color: rgba(245,247,255,.75); font-weight: 950;}
+    .megaT{ margin:0; font-size: clamp(22px, 6vw, 36px); font-weight: 980; letter-spacing:-.6px; line-height:1.06; }
+    .megaP{ margin: 10px 0 0 0; font-size: 15px; font-weight: 850; color: rgba(245,247,255,.88); }
+
+    .legend{
+      display:flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .legendPill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 12px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.04);
+      font-size: 13px;
+      font-weight: 900;
+      color: rgba(245,247,255,.9);
+      white-space: nowrap;
+    }
+    .dot{ width:10px; height:10px; border-radius:999px; display:inline-flex; }
+    .dot.good{ background: var(--good); }
+    .dot.warn{ background: var(--warn); }
+    .dot.bad{ background: var(--bad); }
+
+    /* Table layout */
+    .tableCard{
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 18px;
+      background:
+        radial-gradient(900px 260px at 20% 0%, rgba(110,231,255,.10), transparent 60%),
+        radial-gradient(900px 260px at 80% 0%, rgba(167,139,250,.10), transparent 60%),
+        rgba(255,255,255,.03);
+      box-shadow: var(--shadow);
+      padding: 16px 14px;
+      margin-top: 14px;
+    }
+    .tableTitle{
+      margin: 0 0 8px 0;
+      font-size: clamp(22px, 6.5vw, 34px);
+      line-height: 1.05;
+      letter-spacing: -0.7px;
+      font-weight: 980;
+    }
+    .tableNote{
+      margin: 0 0 12px 0;
+      font-size: 15px;
+      font-weight: 850;
+      color: rgba(245,247,255,.82);
+    }
+    .tableWrap{
+      margin-top: 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      overflow:hidden;
+      background: rgba(0,0,0,.22);
+      box-shadow: 0 14px 34px rgba(0,0,0,.22);
+    }
+    table{ width:100%; border-collapse: collapse; table-layout: fixed; }
+    thead th{
+      text-align:left;
+      padding: 12px;
+      font-size: 12px;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-weight: 980;
+      color: rgba(245,247,255,.9);
+      background:
+        radial-gradient(520px 160px at 20% 0%, rgba(110,231,255,.18), transparent 60%),
+        radial-gradient(520px 160px at 80% 0%, rgba(167,139,250,.18), transparent 60%),
+        rgba(255,255,255,.04);
+      border-bottom: 1px solid rgba(255,255,255,.10);
+    }
+    tbody td{
+      padding: 12px;
+      border-top: 1px solid rgba(255,255,255,.08);
+      font-size: 15px;
+      font-weight: 900;
+      color: rgba(245,247,255,.92);
+      vertical-align: top;
+      overflow-wrap: anywhere;
+    }
+    .col-issue{ width: 32%; }
+    .col-reality{ width: 48%; }
+    .col-assess{ width: 20%; }
+    .status{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.16);
+      font-weight: 900;
+      font-size: 13px;
+      white-space: nowrap;
+    }
+    .status.good{ background: rgba(74,222,128,.14); color: #D1FAE5; }
+    .status.warn{ background: rgba(251,191,36,.14); color: #FEF3C7; }
+    .status.bad{ background: rgba(248,113,113,.16); color: #FEE2E2; }
+
+    @media (max-width: 640px){
+      thead{ display:none; }
+      tbody tr{ display:block; padding: 10px 12px; }
+      tbody td{
+        display:flex;
+        gap:10px;
+        justify-content:space-between;
+        align-items:flex-start;
+        padding: 8px 0;
+        border-top: 1px solid rgba(255,255,255,.08);
+        font-size: 14.5px;
+      }
+      tbody td:first-child{ border-top: none; }
+      tbody td::before{
+        content: attr(data-label);
+        flex: 0 0 42%;
+        font-size: 11px;
+        letter-spacing: .14em;
+        text-transform: uppercase;
+        font-weight: 980;
+        color: rgba(245,247,255,.70);
+        padding-top: 2px;
+      }
+      tbody td .val{
+        flex: 1 1 auto;
+        text-align: right;
+        font-weight: 950;
+      }
+    }
+
+    .footer{
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      text-align: center;
+      box-shadow: 0 10px 24px rgba(0,0,0,.18);
+    }
+    .backToTop{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(110,231,255,.4);
+      background: rgba(110,231,255,.12);
+      color: var(--accent);
+      font-weight: 900;
+      letter-spacing: .2px;
+      text-decoration: none;
+    }
+    .backToTop:hover{
+      background: rgba(110,231,255,.2);
+      text-decoration: none;
+    }
+  </style>
+</head>
+
+<body id="top">
+  <div class="wrap">
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div id="gc-hud" aria-hidden="true">Views: —</div>
+      <div class="brand">
+        <div class="mark" aria-hidden="true"></div>
+        <div class="brandname">EB25 It's <i>still</i> about pay</div>
+      </div>
+
+      <div class="nav">
+        <a class="homePill" href="index.html" aria-label="Home">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3.2 3 10.4v9.1c0 .7.6 1.3 1.3 1.3h5.4v-6.1h4.6v6.1h5.4c.7 0 1.3-.6 1.3-1.3v-9.1L12 3.2z"/>
+          </svg>
+        </a>
+        <div class="menuPill">
+          <details class="menu">
+            <summary class="menuButton">Menu</summary>
+            <div class="menuList">
+              <a class="menuLink" href="index.html">Home</a>
+              <a class="menuLink" href="voting-power.html">Voting Power</a>
+              <a class="menuLink" href="methodology.html">Sources &amp; Method</a>
+              <a class="menuLink" href="member-questions.html">Union Reform</a>
+              <a class="menuLink isActive" href="current-draft-offer.html">The Current (draft) Offer</a>
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="tag">DRAFT OFFER • MEMBER SCORECARD</div>
+
+      <h1 class="h1">
+        <span class="grad">The Current (draft) Offer</span>
+      </h1>
+
+      <p class="sub">
+        The Current Proposed Offer (Formal Offer Pending) — measured against the current offer,
+        governance outcomes, and campaign commitments.
+      </p>
+
+      <div class="legend" aria-label="Assessment legend">
+        <div class="legendPill"><span class="dot good"></span> 🟢 Delivered / Evident</div>
+        <div class="legendPill"><span class="dot warn"></span> 🟠 Partially Addressed / Requires Clarification</div>
+        <div class="legendPill"><span class="dot bad"></span> 🔴 Not Delivered / Misaligned</div>
+      </div>
+    </section>
+
+    <section class="tableCard">
+      <h2 class="tableTitle">1. CPI vs Wages – Economic Reality Check (Contextualised)</h2>
+      <p class="tableNote">Comparison between CPI context and wage outcomes in the current proposal.</p>
+
+      <div class="tableWrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-issue">Comparison Point</th>
+              <th class="col-reality">Observed Reality</th>
+              <th class="col-assess">Assessment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Comparison Point"><span class="val">2021 agreement outset</span></td>
+              <td data-label="Observed Reality"><span class="val">CPI low and stable; 1.5% not far off CPI at the time</span></td>
+              <td data-label="Assessment"><span class="val status good"><span class="dot good"></span>🟢 Reasonable at outset</span></td>
+            </tr>
+            <tr>
+              <td data-label="Comparison Point"><span class="val">Inflation spike (2021–2024)</span></td>
+              <td data-label="Observed Reality"><span class="val">CPI ~19.7% vs wages ~6%</span></td>
+              <td data-label="Assessment"><span class="val status bad"><span class="dot bad"></span>🔴 No safeguard → permanent loss</span></td>
+            </tr>
+            <tr>
+              <td data-label="Comparison Point"><span class="val">Current offer vs current CPI</span></td>
+              <td data-label="Observed Reality"><span class="val">Increases broadly align with current CPI</span></td>
+              <td data-label="Assessment"><span class="val status warn"><span class="dot warn"></span>🟠 Stabilises, does not recover</span></td>
+            </tr>
+            <tr>
+              <td data-label="Comparison Point"><span class="val">CPI safeguard / recovery clause</span></td>
+              <td data-label="Observed Reality"><span class="val">No CPI trigger, no recovery mechanism</span></td>
+              <td data-label="Assessment"><span class="val status bad"><span class="dot bad"></span>🔴 Structural protection absent</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mega">
+        <p class="megaK">Member takeaway</p>
+        <p class="megaP">
+          The failure was not predicting inflation — it was failing to protect against it, and that failure remains uncorrected.
+        </p>
+      </div>
+    </section>
+
+    <section class="tableCard">
+      <h2 class="tableTitle">2. Agreement Structure &amp; Timing</h2>
+      <div class="tableWrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-issue">Issue</th>
+              <th class="col-reality">Observed Reality</th>
+              <th class="col-assess">Assessment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Issue"><span class="val">Agreement length</span></td>
+              <td data-label="Observed Reality"><span class="val">Multi-year effective outcome</span></td>
+              <td data-label="Assessment"><span class="val status bad"><span class="dot bad"></span>🔴 Not genuinely short</span></td>
+            </tr>
+            <tr>
+              <td data-label="Issue"><span class="val">Bargaining window</span></td>
+              <td data-label="Observed Reality"><span class="val">12-month pre-expiry window proposed</span></td>
+              <td data-label="Assessment"><span class="val status bad"><span class="dot bad"></span>🔴 Dilutes leverage</span></td>
+            </tr>
+            <tr>
+              <td data-label="Issue"><span class="val">Backdating</span></td>
+              <td data-label="Observed Reality"><span class="val">Late-applied increases, no recovery</span></td>
+              <td data-label="Assessment"><span class="val status bad"><span class="dot bad"></span>🔴 Framed favourably, not functionally</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tableCard">
+      <h2 class="tableTitle">3. Wage Outcomes – Distributional Effects (Equity Framing)</h2>
+      <div class="tableWrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-issue">Observation</th>
+              <th class="col-reality">What the Offer Shows</th>
+              <th class="col-assess">Assessment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Observation"><span class="val">Some cohorts receive targeted uplifts</span></td>
+              <td data-label="What the Offer Shows"><span class="val">Fixed dollar increases layered within the EA</span></td>
+              <td data-label="Assessment"><span class="val status good"><span class="dot good"></span>🟢 Clearly delivered</span></td>
+            </tr>
+            <tr>
+              <td data-label="Observation"><span class="val">Most cohorts</span></td>
+              <td data-label="What the Offer Shows"><span class="val">CPI-aligned increases only</span></td>
+              <td data-label="Assessment"><span class="val status warn"><span class="dot warn"></span>🟠 Stops erosion, no repair</span></td>
+            </tr>
+            <tr>
+              <td data-label="Observation"><span class="val">Structural balance across workforce</span></td>
+              <td data-label="What the Offer Shows"><span class="val">No mechanism to rebalance historic loss</span></td>
+              <td data-label="Assessment"><span class="val status bad"><span class="dot bad"></span>🔴 Inequitable outcome persists</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mega">
+        <p class="megaK">Key point</p>
+        <p class="megaP">
+          This is not about one cohort versus another — it is about whether outcomes are scaled equitably across the membership.
+        </p>
+      </div>
+    </section>
+
+    <section class="tableCard">
+      <h2 class="tableTitle">4. Separate Instruments &amp; Structural Reform</h2>
+      <div class="tableWrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-issue">Campaign Commitment</th>
+              <th class="col-reality">Observed Reality</th>
+              <th class="col-assess">Assessment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Campaign Commitment"><span class="val">Cohort-specific bargaining where justified</span></td>
+              <td data-label="Observed Reality"><span class="val">No separate instruments included in this EA</span></td>
+              <td data-label="Assessment"><span class="val status bad"><span class="dot bad"></span>🔴 Not delivered</span></td>
+            </tr>
+            <tr>
+              <td data-label="Campaign Commitment"><span class="val">Corrections separation (campaign narrative)</span></td>
+              <td data-label="Observed Reality"><span class="val">Not included in log of claims or this EBA</span></td>
+              <td data-label="Assessment"><span class="val status bad"><span class="dot bad"></span>🔴 Deferred without explanation</span></td>
+            </tr>
+            <tr>
+              <td data-label="Campaign Commitment"><span class="val">Timing of reform</span></td>
+              <td data-label="Observed Reality"><span class="val">Structural change postponed despite leverage</span></td>
+              <td data-label="Assessment"><span class="val status bad"><span class="dot bad"></span>🔴 Prolonged unnecessarily</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tableCard">
+      <h2 class="tableTitle">5. Governance, Representation &amp; Democratic Equity (New – Integrated)</h2>
+      <div class="tableWrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-issue">Governance Principle</th>
+              <th class="col-reality">What Members Can Observe</th>
+              <th class="col-assess">Assessment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Governance Principle"><span class="val">Proportional representation</span></td>
+              <td data-label="What Members Can Observe"><span class="val">A minority cohort (DCS) holds 5 OPS councillors and significant Executive presence</span></td>
+              <td data-label="Assessment"><span class="val status bad"><span class="dot bad"></span>🔴 Disproportionate influence</span></td>
+            </tr>
+            <tr>
+              <td data-label="Governance Principle"><span class="val">500-member-to-councillor principle</span></td>
+              <td data-label="What Members Can Observe"><span class="val">Representation exceeds typical scaling when applied across OPS</span></td>
+              <td data-label="Assessment"><span class="val status bad"><span class="dot bad"></span>🔴 Misaligned</span></td>
+            </tr>
+            <tr>
+              <td data-label="Governance Principle"><span class="val">OPS electorate diversity</span></td>
+              <td data-label="What Members Can Observe"><span class="val">OPS representation structured as solely DCS-based</span></td>
+              <td data-label="Assessment"><span class="val status bad"><span class="dot bad"></span>🔴 Not representative</span></td>
+            </tr>
+            <tr>
+              <td data-label="Governance Principle"><span class="val">Transparency &amp; clarity</span></td>
+              <td data-label="What Members Can Observe"><span class="val">No clear explanation provided by PSA on OPS scaling rules</span></td>
+              <td data-label="Assessment"><span class="val status warn"><span class="dot warn"></span>🟠 Clarification required</span></td>
+            </tr>
+            <tr>
+              <td data-label="Governance Principle"><span class="val">Balanced candidate pool</span></td>
+              <td data-label="What Members Can Observe"><span class="val">No evidence of deliberate cross-department OPS slate</span></td>
+              <td data-label="Assessment"><span class="val status bad"><span class="dot bad"></span>🔴 Governance failure</span></td>
+            </tr>
+            <tr>
+              <td data-label="Governance Principle"><span class="val">Member confidence in fairness</span></td>
+              <td data-label="What Members Can Observe"><span class="val">Outcomes now visibly track representation imbalance</span></td>
+              <td data-label="Assessment"><span class="val status bad"><span class="dot bad"></span>🔴 Undermined</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mega">
+        <p class="megaK">Important clarification</p>
+        <p class="megaP">
+          There may be technical rule-based reasons for this structure (e.g. OPS role definitions beyond Correctional Officers).
+          However, the onus is on PSA to explain and justify this clearly — and that has not occurred.
+        </p>
+      </div>
+    </section>
+
+    <section class="tableCard">
+      <h2 class="tableTitle">6. Leadership Sacrifice &amp; Cost-of-Living Commitments</h2>
+      <div class="tableWrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-issue">Campaign Claim</th>
+              <th class="col-reality">Observed Reality</th>
+              <th class="col-assess">Assessment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Campaign Claim"><span class="val">General Secretary wage reduction</span></td>
+              <td data-label="Observed Reality"><span class="val">No evidence or confirmation</span></td>
+              <td data-label="Assessment"><span class="val status bad"><span class="dot bad"></span>🔴 Not delivered</span></td>
+            </tr>
+            <tr>
+              <td data-label="Campaign Claim"><span class="val">Membership fee reductions</span></td>
+              <td data-label="Observed Reality"><span class="val">No fee change</span></td>
+              <td data-label="Assessment"><span class="val status bad"><span class="dot bad"></span>🔴 Not delivered</span></td>
+            </tr>
+            <tr>
+              <td data-label="Campaign Claim"><span class="val">Sharing the burden</span></td>
+              <td data-label="Observed Reality"><span class="val">Costs remain with members</span></td>
+              <td data-label="Assessment"><span class="val status bad"><span class="dot bad"></span>🔴 One-sided</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="tableCard">
+      <h2 class="tableTitle">7. Member Voice &amp; Accountability</h2>
+      <div class="tableWrap">
+        <table>
+          <thead>
+            <tr>
+              <th class="col-issue">Claim</th>
+              <th class="col-reality">Observed Reality</th>
+              <th class="col-assess">Assessment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Claim"><span class="val">“Members Matter”</span></td>
+              <td data-label="Observed Reality"><span class="val">Offer framed as final</span></td>
+              <td data-label="Assessment"><span class="val status bad"><span class="dot bad"></span>🔴 Weak consultation</span></td>
+            </tr>
+            <tr>
+              <td data-label="Claim"><span class="val">Responsiveness</span></td>
+              <td data-label="Observed Reality"><span class="val">Future leverage delayed</span></td>
+              <td data-label="Assessment"><span class="val status bad"><span class="dot bad"></span>🔴 Not responsive</span></td>
+            </tr>
+            <tr>
+              <td data-label="Claim"><span class="val">Blame narrative</span></td>
+              <td data-label="Observed Reality"><span class="val">Focus returned to “density”</span></td>
+              <td data-label="Assessment"><span class="val status bad"><span class="dot bad"></span>🔴 Contradicts campaign</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="mega">
+        <p class="megaK">Bottom-Line Member Summary</p>
+        <p class="megaP">
+          Economic protection: 🔴 Still missing<br />
+          Wage repair: 🟠 Not delivered<br />
+          Structural reform: 🔴 Deferred<br />
+          Representation equity: 🔴 Not scaled fairly<br />
+          Transparency: 🟠 Inadequate<br />
+          Leadership sacrifice: 🔴 Absent<br />
+          Member voice: 🔴 Weakly reflected
+        </p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <a class="backToTop" href="#top">Back to top</a>
+    </footer>
+  </div>
+
+  <script>
+    document.addEventListener('click', (event) => {
+      document.querySelectorAll('details.menu[open]').forEach((menu) => {
+        if (!menu.contains(event.target)) {
+          menu.removeAttribute('open');
+        }
+      });
+    });
+
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') {
+        document.querySelectorAll('details.menu[open]').forEach((menu) => {
+          menu.removeAttribute('open');
+        });
+      }
+    });
+  </script>
+
+  <!-- GoatCounter -->
+  <script data-goatcounter="https://sa-ps-wages.goatcounter.com/count"
+          async src="https://gc.zgo.at/count.js"></script>
+
+  <!-- GoatCounter HUD -->
+  <script>
+    (function(){
+      const el = document.getElementById('gc-hud');
+      if (!el) return;
+
+      const path = location.pathname || '/';
+      const url = 'https://sa-ps-wages.goatcounter.com/counter/' + encodeURIComponent(path) + '.json?no_branding=1';
+
+      fetch(url, { cache: 'no-store' })
+        .then(r => r.ok ? r.json() : Promise.reject(r.status))
+        .then(data => { el.textContent = `Views: ${data.count}`; })
+        .catch(() => { el.textContent = 'Views: —'; });
+    })();
+  </script>
+</body>
+</html>
