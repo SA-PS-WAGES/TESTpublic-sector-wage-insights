@@ -37,7 +37,7 @@
     a{ color:var(--accent); text-decoration:none; }
     a:hover{ text-decoration:underline; }
 
-    .wrap{ max-width:var(--max); margin:0 auto; padding: 48px 14px 28px; }
+    .wrap{ max-width:var(--max); margin:0 auto; padding: 32px 14px 28px; }
 
     /* Header */
     .topbar{
@@ -57,7 +57,7 @@
 
     #gc-hud{
       position: absolute;
-      top: -12px;
+      top: -18px;
       left: 50%;
       transform: translateX(-50%);
       font-size: 10px;
@@ -112,6 +112,27 @@
       justify-content:flex-end;
       align-items:center;
       margin-left: auto;
+    }
+    .homePill{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:36px;
+      height:36px;
+      border-radius:999px;
+      border:1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      color: var(--accent);
+      flex:0 0 auto;
+    }
+    .homePill svg{
+      width:16px;
+      height:16px;
+      fill: currentColor;
+    }
+    .homePill:hover{
+      background: rgba(255,255,255,.06);
+      text-decoration:none;
     }
 
     .pill{
@@ -239,6 +260,14 @@
         flex: 0 0 auto;
         min-width: 0;
         padding: 6px 10px;
+      }
+      .homePill{
+        width:32px;
+        height:32px;
+      }
+      .homePill svg{
+        width:14px;
+        height:14px;
       }
       .menuButton{ font-size: 12px; }
       .menuButton::after{ font-size: 10px; }
@@ -500,6 +529,11 @@
       </div>
 
       <div class="nav">
+        <a class="homePill" href="index.html" aria-label="Home">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3.2 3 10.4v9.1c0 .7.6 1.3 1.3 1.3h5.4v-6.1h4.6v6.1h5.4c.7 0 1.3-.6 1.3-1.3v-9.1L12 3.2z"/>
+          </svg>
+        </a>
         <div class="menuPill">
           <details class="menu">
             <summary class="menuButton">Menu</summary>
