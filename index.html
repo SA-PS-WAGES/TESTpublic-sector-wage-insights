@@ -528,6 +528,59 @@
       margin-bottom: 10px;
     }
 
+    /* Union reform CTA */
+    .actionCard{
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.14);
+      background:
+        radial-gradient(520px 200px at 20% 0%, rgba(110,231,255,.14), transparent 60%),
+        radial-gradient(520px 200px at 80% 0%, rgba(167,139,250,.14), transparent 60%),
+        rgba(0,0,0,.18);
+      box-shadow: 0 14px 34px rgba(0,0,0,.22);
+      padding: 18px;
+    }
+    .actionKicker{
+      margin: 0 0 10px 0;
+      font-size: 12px;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: rgba(245,247,255,.78);
+      font-weight: 950;
+    }
+    .actionTitle{
+      margin: 0;
+      font-size: clamp(22px, 4.6vw, 34px);
+      font-weight: 980;
+      letter-spacing: -.6px;
+      line-height: 1.2;
+    }
+    .actionText{
+      margin: 12px 0 0 0;
+      font-size: clamp(15px, 3.8vw, 19px);
+      font-weight: 850;
+      color: rgba(245,247,255,.88);
+      line-height: 1.5;
+      max-width: 75ch;
+    }
+    .actionLink{
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 14px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(110,231,255,.4);
+      background: rgba(110,231,255,.12);
+      color: var(--accent);
+      font-weight: 900;
+      letter-spacing: .2px;
+      text-decoration: none;
+    }
+    .actionLink:hover{
+      background: rgba(110,231,255,.2);
+      text-decoration: none;
+    }
+
     /* Calculator */
     .grid{
       display:grid;
@@ -708,9 +761,7 @@
               <a class="menuLink isActive" href="index.html">Home</a>
               <a class="menuLink" href="voting-power.html">Voting Power</a>
               <a class="menuLink" href="methodology.html">Sources &amp; Method</a>
-              <a class="menuLink" href="financial-position.html">PSA Finances</a>
-              <a class="menuLink" href="union.html">Union &amp; Membership</a>
-              <a class="menuLink" href="member-questions.html">Member Questions</a>
+              <a class="menuLink" href="member-questions.html">Union Reform</a>
             </div>
           </details>
         </div>
@@ -730,6 +781,22 @@
         Those below the award need an <strong>additional 2-3%</strong><br><br>
         We <strong>ALL</strong> deserve fair pay <strong>NOW.</strong>
       </p>
+    </section>
+
+    <section class="section" id="union-reform">
+      <div class="actionCard">
+        <p class="actionKicker">Union Reform</p>
+        <h2 class="actionTitle">
+          Union Members, we are calling you to action to request a special general meeting to ensure accountability to the PSA Change campaign promises.
+        </h2>
+        <p class="actionText">
+          We have collated all of the promises made during their election campaign and thereafter for you to take a look.
+        </p>
+        <p class="actionText">
+          We will be looking to compare their outcomes with the formal offer once we have been provided with one.
+        </p>
+        <a class="actionLink" href="member-questions.html">Go to Union Reform</a>
+      </div>
     </section>
 
     <section class="section" id="calculator" style="margin-top:18px;">

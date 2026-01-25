@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Why Members Are Asking Questions – PSA SA</title>
+  <title>EB25: It's still about pay - Union Reform</title>
 
   <style>
     :root{
@@ -198,41 +198,58 @@
     .menuLink{
       display:flex;
       align-items:center;
-      gap:8px;
-      padding: 10px 12px;
+      justify-content:space-between;
+      padding: 8px 10px;
       border-radius: 12px;
-      color: rgba(245,247,255,.85);
-      font-size: 14px;
+      color: var(--accent);
       font-weight: 800;
-      border: 1px solid transparent;
+      font-size: 13px;
       background: rgba(255,255,255,.02);
+      border: 1px solid transparent;
     }
-    .menuLink:hover{ border-color: rgba(255,255,255,.14); background: rgba(255,255,255,.05); text-decoration: none; }
-    .menuLink.isActive{ border-color: rgba(110,231,255,.45); color: #D9F8FF; background: rgba(110,231,255,.08); }
+    .menuLink:hover{
+      border-color: rgba(110,231,255,.3);
+      background: rgba(110,231,255,.08);
+      text-decoration:none;
+    }
+    .menuLink.isActive{
+      border-color: rgba(110,231,255,.45);
+      background: rgba(110,231,255,.12);
+      color: var(--accent);
+    }
 
     .hero{
-      padding: 8px 0 10px;
+      margin-top: 0;
+      padding: 18px 14px;
+      border-radius: var(--radius);
+      border: 1px solid var(--line);
+      background:
+        radial-gradient(900px 240px at 20% 0%, rgba(110,231,255,.16), transparent 55%),
+        radial-gradient(900px 240px at 80% 0%, rgba(167,139,250,.16), transparent 55%),
+        linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      box-shadow: var(--shadow);
+      overflow: hidden;
     }
     .tag{
       display:inline-flex;
       align-items:center;
       gap:8px;
-      padding: 6px 12px;
+      padding: 8px 11px;
       border-radius: 999px;
-      background: rgba(255,255,255,.06);
-      border: 1px solid rgba(255,255,255,.14);
-      font-size: 11px;
-      letter-spacing: .16em;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(0,0,0,.16);
+      font-weight: 950;
+      letter-spacing: .12em;
       text-transform: uppercase;
-      font-weight: 900;
-      color: rgba(245,247,255,.85);
+      font-size: 11.5px;
+      color: rgba(245,247,255,.88);
     }
     .h1{
-      margin: 12px 0 6px 0;
-      font-size: clamp(26px, 7vw, 44px);
+      margin: 10px 0 8px 0;
+      font-size: clamp(30px, 8vw, 54px);
+      line-height: 1.02;
+      letter-spacing: -1px;
       font-weight: 980;
-      letter-spacing: -.6px;
-      line-height: 1.05;
     }
     .grad{
       background: linear-gradient(92deg, var(--accent), var(--accent2));
@@ -242,10 +259,10 @@
     }
     .sub{
       margin: 0;
-      font-size: clamp(16px, 4.6vw, 20px);
+      font-size: clamp(18px, 4.8vw, 22px);
       font-weight: 900;
       color: rgba(245,247,255,.90);
-      line-height: 1.35;
+      line-height: 1.45;
       max-width: 70ch;
     }
 
@@ -268,19 +285,19 @@
       padding: 14px;
       box-shadow: 0 14px 34px rgba(0,0,0,.22);
     }
-    .megaK{ margin:0 0 6px 0; font-size: 12px; letter-spacing:.14em; text-transform:uppercase; color: rgba(245,247,255,.75); font-weight: 950;}
-    .megaT{ margin:0; font-size: clamp(22px, 6vw, 36px); font-weight: 980; letter-spacing:-.6px; line-height:1.06; }
-    .megaP{ margin: 10px 0 0 0; font-size: 15px; font-weight: 850; color: rgba(245,247,255,.88); }
+    .megaK{ margin:0 0 8px 0; font-size: 13px; letter-spacing:.14em; text-transform:uppercase; color: rgba(245,247,255,.75); font-weight: 950;}
+    .megaT{ margin:0; font-size: clamp(28px, 7vw, 48px); font-weight: 990; letter-spacing:-.8px; line-height:1.05; }
+    .megaP{ margin: 12px 0 0 0; font-size: clamp(16px, 4.2vw, 20px); font-weight: 850; color: rgba(245,247,255,.9); line-height: 1.55; }
 
     .bullets{
-      margin: 10px 0 0 18px;
+      margin: 12px 0 0 18px;
       padding: 0;
-      color: rgba(245,247,255,.88);
-      font-size: 15px;
-      line-height: 1.45;
+      color: rgba(245,247,255,.9);
+      font-size: clamp(16px, 4vw, 20px);
+      line-height: 1.55;
       font-weight: 850;
     }
-    .bullets li{ margin: 6px 0; }
+    .bullets li{ margin: 8px 0; }
 
     .footerLink{
       margin-top: 12px;
@@ -290,28 +307,76 @@
     }
 
     .footer{
-      margin-top: 22px;
-      display:flex;
-      justify-content:center;
+      margin-top: 20px;
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,.03);
+      text-align: center;
+      box-shadow: 0 10px 24px rgba(0,0,0,.18);
     }
     .backToTop{
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 10px 14px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 16px;
       border-radius: 999px;
-      border:1px solid var(--line);
-      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(110,231,255,.4);
+      background: rgba(110,231,255,.12);
       color: var(--accent);
-      font-size: 13px;
       font-weight: 900;
+      letter-spacing: .2px;
       text-decoration: none;
     }
-    .backToTop:hover{ background: rgba(255,255,255,.06); }
+    .backToTop:hover{
+      background: rgba(110,231,255,.2);
+      text-decoration: none;
+    }
 
     @media (max-width: 720px){
-      .menuPill{ width: 100%; justify-content:flex-start; }
-      .menuList{ min-width: 100%; }
+      .topbar{
+        border-radius:22px;
+        padding:12px;
+        gap:12px;
+      }
+      .pill{
+        padding:10px 12px;
+        font-size:13.5px;
+      }
+      .brand{ align-items:flex-start; }
+      .brandname{
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        line-height: 1.15;
+        font-size: 13px;
+      }
+      .nav{
+        width: auto;
+        justify-content: flex-end;
+      }
+      .menuPill{
+        flex: 0 0 auto;
+        min-width: 0;
+        padding: 6px 10px;
+      }
+      .homePill{
+        width:32px;
+        height:32px;
+      }
+      .homePill svg{
+        width:14px;
+        height:14px;
+      }
+      .menuButton{ font-size: 12px; }
+      .menuButton::after{ font-size: 10px; }
+      .menuList{
+        left: auto;
+        right: 0;
+        min-width: 220px;
+        width: 240px;
+        max-width: 90vw;
+      }
     }
   </style>
 </head>
@@ -338,9 +403,7 @@
               <a class="menuLink" href="index.html">Home</a>
               <a class="menuLink" href="voting-power.html">Voting Power</a>
               <a class="menuLink" href="methodology.html">Sources &amp; Method</a>
-              <a class="menuLink" href="financial-position.html">PSA Finances</a>
-              <a class="menuLink" href="union.html">Union &amp; Membership</a>
-              <a class="menuLink isActive" href="member-questions.html">Member Questions</a>
+              <a class="menuLink isActive" href="member-questions.html">Union Reform</a>
             </div>
           </details>
         </div>
@@ -348,10 +411,10 @@
     </div>
 
     <section class="hero">
-      <div class="tag">Member Inquiry • Governance</div>
+      <div class="tag">Union Reform • Accountability</div>
 
       <h1 class="h1">
-        <span class="grad">Why Members Are Asking Questions</span>
+        <span class="grad">Union Reform</span>
       </h1>
 
       <p class="sub">
@@ -365,7 +428,7 @@
     <section class="section">
       <div class="mega">
         <p class="megaK">Representation</p>
-        <p class="megaT">How representation is currently structured</p>
+        <h2 class="megaT">How representation is currently structured</h2>
         <p class="megaP">
           Under the current PSA structure, members are grouped into electorates and represented through electorate-based Branch Councillors and an Executive Council elected from within those councillors. In principle, this system is designed to scale representation in line with membership numbers and ensure fairness across diverse workforces. In practice, however, the way electorates are grouped — particularly within the OPS stream — has created a concentration of representation that does not reflect the broader salaried workforce.
         </p>
@@ -375,7 +438,7 @@
     <section class="section">
       <div class="mega">
         <p class="megaK">OPS Electorate</p>
-        <p class="megaT">The OPS electorate and disproportionate influence</p>
+        <h2 class="megaT">The OPS electorate and disproportionate influence</h2>
         <p class="megaP">
           Correctional Officers are currently grouped within the OPS electorate, despite being a highly concentrated workforce largely contained within a single department (DCS) and operating under unique industrial conditions that differ from most OPS members. As a result:
         </p>
@@ -391,7 +454,7 @@
     <section class="section">
       <div class="mega">
         <p class="megaK">Democratic fairness</p>
-        <p class="megaT">Why this matters for democratic fairness</p>
+        <h2 class="megaT">Why this matters for democratic fairness</h2>
         <p class="megaP">When a single, highly organised cohort dominates an electorate:</p>
         <ul class="bullets">
           <li>Other OPS members lose meaningful representation.</li>
@@ -407,7 +470,7 @@
     <section class="section">
       <div class="mega">
         <p class="megaK">Industrial leverage</p>
-        <p class="megaT">Industrial strategy and leverage: a mismatch</p>
+        <h2 class="megaT">Industrial strategy and leverage: a mismatch</h2>
         <p class="megaP">Recent industrial action highlights a deeper issue.</p>
         <ul class="bullets">
           <li>Correctional Officers undertook prolonged industrial action.</li>
@@ -429,7 +492,7 @@
     <section class="section">
       <div class="mega">
         <p class="megaK">Intent</p>
-        <p class="megaT">This is not about smear or blame</p>
+        <h2 class="megaT">This is not about smear or blame</h2>
         <p class="megaP">Members are not seeking reform through accusation or internal division. This inquiry is grounded in good governance:</p>
         <ul class="bullets">
           <li>Transparency.</li>
@@ -446,7 +509,7 @@
     <section class="section">
       <div class="mega">
         <p class="megaK">Commitments</p>
-        <p class="megaT">Why commitments matter</p>
+        <h2 class="megaT">Why commitments matter</h2>
         <p class="megaP">
           During the PSA Change campaign, members were presented with clear commitments across classification reform, wage growth, separate agreements for distinct cohorts, and improved conditions and allowances. These commitments were decisive for many voters.
         </p>
@@ -459,7 +522,7 @@
     <section class="section">
       <div class="mega">
         <p class="megaK">Campaign promises</p>
-        <p class="megaT">Commitments members are asking to be accounted for</p>
+        <h2 class="megaT">Commitments members are asking to be accounted for</h2>
         <p class="megaP">The following commitments were publicly made during the PSA Change campaign and form the basis of this inquiry:</p>
         <ul class="bullets">
           <li>Improved classification streams and new increments across OPS, ASO, CO and PO classifications.</li>
@@ -492,7 +555,7 @@
     <section class="section">
       <div class="mega">
         <p class="megaK">Bigger picture</p>
-        <p class="megaT">The bigger picture</p>
+        <h2 class="megaT">The bigger picture</h2>
         <ul class="bullets">
           <li>No minority cohort holds structural dominance.</li>
           <li>No electorate is functionally silenced.</li>
@@ -508,7 +571,7 @@
     <section class="section">
       <div class="mega">
         <p class="megaK">Requisition</p>
-        <p class="megaT">How the requisition process works</p>
+        <h2 class="megaT">How the requisition process works</h2>
         <p class="megaP">
           To formally request transparency and disclosure, members are using a Special General Meeting (SGM) requisition in accordance with PSA rules.
         </p>
