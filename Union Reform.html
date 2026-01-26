@@ -774,6 +774,38 @@
   line-height: 1.55;
   color: rgba(245,247,255,.92);
 }
+/* Make ALL commitments bold – keeps nth-child stable */
+.promises li{
+  font-weight: 900;
+}
+/* ======= SINGLE WINDOW MODE (remove the double “section + mega” frame) ======= */
+
+/* Make .section behave like your old .mega (the nice inner gradient window) */
+.section{
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.14);
+  background:
+    radial-gradient(520px 180px at 18% 0%, rgba(110,231,255,.12), transparent 62%),
+    radial-gradient(520px 180px at 82% 0%, rgba(167,139,250,.12), transparent 62%),
+    rgba(0,0,0,.18);
+  box-shadow: 0 14px 34px rgba(0,0,0,.22);
+}
+
+/* Turn .mega into a plain “content wrapper” (no border, no extra padding/shadow) */
+.mega{
+  margin-top: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Slightly reduce padding on small screens */
+@media (max-width: 720px){
+  .section{ padding: 12px; }
+}
 
   </style>
 </head>
@@ -805,8 +837,8 @@
 
             <div class="menuList">
               <a class="menuLink" href="index.html">Home</a>
-              <a class="menuLink isActive" href="Union Reform.html">The Member's Union</a>
               <a class="menuLink" href="voting-power.html">Voting Power</a>
+              <a class="menuLink isActive" href="Union Reform.html">The Member's Union</a>
               <a class="menuLink" href="methodology.html">Sources &amp; Method</a>
             </div>
           </details>
@@ -886,9 +918,13 @@
         </div>
 
         <p class="footerLink">
-          <a href="TESTpublic-sector-wage-insights/assets/downloads/sgm-requisition-v2.pdf">
-            <span class="k">Download the SGM requisition template</span>
-          </a>
+<a
+  href="/TESTpublic-sector-wage-insights/assets/downloads/sgm-requisition-v2.pdf"
+  download
+>
+  <span class="k">Download the SGM requisition template</span>
+</a>
+
         </p>
 
         <p class="megaP">
@@ -908,7 +944,7 @@
 
         <!-- ✅ FIXED: only #1 and #21 are bold, and tags are balanced -->
         <ol class="promises">
-          <li><b>Improved classification streams and new increments across OPS, ASO, CO and PO classifications.</li>
+          <li>Improved classification streams and new increments across OPS, ASO, CO and PO classifications.</li>
           <li>OPS1 to be trainee-only, with new increments for OPS2 and OPS3.</li>
           <li>New increments for CO3, PO3, ASO2, ASO3 and ASO6.</li>
           <li>Automatic progression from CO2 to CO3 on completion of Certificate IV.</li>
@@ -928,7 +964,7 @@
           <li>Improved on-call and recall provisions (annualised allowance).</li>
           <li>Health-site parking caps or free public transport access.</li>
           <li>Reduction of membership fees, funded by significantly cutting the General Secretary’s wage.</li>
-          <li>A formal offer received within a reasonable timeframe before the ballot opens.</b></li>
+          <li>A formal offer received within a reasonable timeframe before the ballot opens.</li>
         </ol>
 
         <p class="megaP">
@@ -1021,16 +1057,19 @@
         <h2 class="megaT"><span class="pop">Take action now</span></h2>
 
         <p class="footerLink">
-          <a href="TESTpublic-sector-wage-insights/assets/downloads/sgm-requisition-v2.pdf">
-            <span class="k">Download the requisition template</span>
-          </a>
+<a
+  href="/TESTpublic-sector-wage-insights/assets/downloads/sgm-requisition-v2.pdf"
+  download
+>
+  <span class="k">Download the SGM requisition template</span>
+</a>
         </p>
 
         <div class="steps" role="list" aria-label="Take action steps">
           <div class="step" role="listitem">
             <div class="stepN" aria-hidden="true">1</div>
             <div>
-              <p class="stepT"><span class="pop">Share</span></p>
+              <p class="stepT"><span class="k">Share</span></p>
               <p class="stepP">Send the template to colleagues you trust.</p>
             </div>
           </div>
@@ -1038,7 +1077,7 @@
           <div class="step" role="listitem">
             <div class="stepN" aria-hidden="true">2</div>
             <div>
-              <p class="stepT"><span class="pop">Sign</span></p>
+              <p class="stepT"><span class="k">Sign</span></p>
               <p class="stepP">Collect signatures from current PSA members only.</p>
             </div>
           </div>
@@ -1046,7 +1085,7 @@
           <div class="step" role="listitem">
             <div class="stepN" aria-hidden="true">3</div>
             <div>
-              <p class="stepT"><span class="pop">Coordinate</span></p>
+              <p class="stepT"><span class="k">Coordinate</span></p>
               <p class="stepP">Combine pages with other members you may be in touch with so you can submit collectively.</p>
             </div>
           </div>
@@ -1101,3 +1140,8 @@
   </script>
 </body>
 </html>
+
+
+
+
+
