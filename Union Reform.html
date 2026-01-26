@@ -778,6 +778,34 @@
 .promises li{
   font-weight: 900;
 }
+/* ======= SINGLE WINDOW MODE (remove the double “section + mega” frame) ======= */
+
+/* Make .section behave like your old .mega (the nice inner gradient window) */
+.section{
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,.14);
+  background:
+    radial-gradient(520px 180px at 18% 0%, rgba(110,231,255,.12), transparent 62%),
+    radial-gradient(520px 180px at 82% 0%, rgba(167,139,250,.12), transparent 62%),
+    rgba(0,0,0,.18);
+  box-shadow: 0 14px 34px rgba(0,0,0,.22);
+}
+
+/* Turn .mega into a plain “content wrapper” (no border, no extra padding/shadow) */
+.mega{
+  margin-top: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Slightly reduce padding on small screens */
+@media (max-width: 720px){
+  .section{ padding: 12px; }
+}
 
   </style>
 </head>
@@ -1112,6 +1140,7 @@
   </script>
 </body>
 </html>
+
 
 
 
