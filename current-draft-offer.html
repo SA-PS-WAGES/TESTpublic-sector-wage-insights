@@ -456,6 +456,92 @@
       background: rgba(110,231,255,.2);
       text-decoration: none;
     }
+
+    /* Analysis module */
+    .analysis-wrap{
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      margin: 40px 0 32px;
+    }
+    .analysis-card{
+      background: rgba(8,14,26,.82);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 20px;
+      padding: 22px;
+      box-shadow: 0 20px 40px rgba(0,0,0,.28);
+    }
+    .analysis-kicker{
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: .22em;
+      color: var(--accent);
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .analysis-title{
+      margin: 0 0 8px;
+      font-size: clamp(28px, 4vw, 40px);
+      line-height: 1.1;
+    }
+    .analysis-grid{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+    .analysis-callout{
+      padding: 16px;
+      border-radius: 16px;
+      border: 1px solid transparent;
+      font-weight: 700;
+    }
+    .analysis-callout--bad{
+      background: rgba(248,113,113,.12);
+      border-color: rgba(248,113,113,.4);
+      color: #FFECEC;
+    }
+    .analysis-callout--warn{
+      background: rgba(251,191,36,.12);
+      border-color: rgba(251,191,36,.35);
+      color: #FFF6DF;
+    }
+    .analysis-table{
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+      font-size: 14px;
+    }
+    .analysis-table th,
+    .analysis-table td{
+      padding: 10px 12px;
+      text-align: left;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .analysis-table th{
+      color: var(--muted);
+      font-weight: 700;
+    }
+    .analysis-svg{
+      width: 100%;
+      height: auto;
+      margin: 16px 0;
+    }
+    .analysis-svg rect{
+      fill: rgba(110,231,255,.18);
+      stroke: rgba(110,231,255,.5);
+      stroke-width: 2;
+    }
+    .analysis-svg text{
+      fill: var(--text);
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .analysis-svg path{
+      fill: none;
+      stroke: rgba(110,231,255,.6);
+      stroke-width: 4;
+    }
   </style>
 </head>
 
@@ -791,6 +877,203 @@
         </p>
       </div>
     </section>
+
+    <!-- ========================= -->
+    <!-- ANALYSIS MODULE START -->
+    <!-- ========================= -->
+    <section class="analysis-wrap">
+
+      <!-- COVER -->
+      <section class="analysis-card">
+        <div class="analysis-kicker">Forensic Editorial</div>
+        <h1 class="analysis-title">The 2025 Offer vs. The Cost of Living</h1>
+        <p>An independent analysis of purchasing power decline since 2020.</p>
+      </section>
+
+      <!-- EXECUTIVE SUMMARY -->
+      <section class="analysis-card">
+        <div class="analysis-kicker">Executive Summary</div>
+        <h2>The Verdict</h2>
+
+        <div class="analysis-grid">
+          <div class="analysis-card">
+            <h3>The Gap</h3>
+            <p>Headline increases of <strong>3.75% / 3.5% / 3.25%</strong> do not recover purchasing power lost since 2020.</p>
+          </div>
+
+          <div class="analysis-card">
+            <h3>Inflation Reality</h3>
+            <p>Housing, energy, and essentials have materially outpaced wage growth.</p>
+          </div>
+
+          <div class="analysis-card">
+            <h3>Conditions Trade-Off</h3>
+            <p>A shift toward 7-day rostering trades predictability for additional leave.</p>
+          </div>
+
+          <div class="analysis-card analysis-callout analysis-callout--bad">
+            <h3>Bottom Line</h3>
+            <p><strong>Verdict:</strong> mathematically insufficient to restore real wages.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- RECEIPT -->
+      <section class="analysis-card">
+        <h2>The Receipt: Essential Costs (2020–2025)</h2>
+
+        <table class="analysis-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Then</th>
+              <th>Now</th>
+              <th>Change</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Adelaide 3-bed rent</td>
+              <td>$380 / wk</td>
+              <td>$600 / wk</td>
+              <td><strong>+55%</strong></td>
+            </tr>
+            <tr>
+              <td>Mortgage (modest loan)</td>
+              <td>$2,100 / mo</td>
+              <td>$3,300 / mo</td>
+              <td><strong>+57%</strong></td>
+            </tr>
+            <tr>
+              <td>Electricity</td>
+              <td>$1,800 / yr</td>
+              <td>$3,000 / yr</td>
+              <td><strong>+66%</strong></td>
+            </tr>
+            <tr>
+              <td>Gas</td>
+              <td>$900 / yr</td>
+              <td>$1,600 / yr</td>
+              <td><strong>+77%</strong></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <p><strong>Total essentials increase:</strong> ~60%<br /><strong>Public sector wage growth:</strong> ~9–10%</p>
+      </section>
+
+      <!-- SCENARIO A -->
+      <section class="analysis-card">
+        <h2>Scenario A: The “Treading Water” Test</h2>
+        <p>Does the offer stop real wages from falling further?</p>
+
+        <svg class="analysis-svg" viewBox="0 0 800 300" aria-label="Treading water comparison">
+          <rect x="200" y="80" width="180" height="190" />
+          <text x="210" y="70">Required to stand still</text>
+          <text x="210" y="260">4.5–5% p.a.</text>
+
+          <rect x="450" y="140" width="180" height="130" />
+          <text x="460" y="130">The offer</text>
+          <text x="460" y="260">3.75 / 3.5 / 3.25</text>
+        </svg>
+
+        <div class="analysis-callout analysis-callout--bad">
+          FAIL: falling behind more slowly is still falling behind.
+        </div>
+      </section>
+
+      <!-- SCENARIO B -->
+      <section class="analysis-card">
+        <h2>Scenario B: The Recovery Test</h2>
+
+        <svg class="analysis-svg" viewBox="0 0 800 300" aria-label="Recovery gap">
+          <rect x="200" y="60" width="200" height="210" />
+          <text x="220" y="160">Essentials</text>
+          <text x="220" y="185">+60%</text>
+
+          <rect x="470" y="210" width="200" height="60" />
+          <text x="520" y="245">Wages +10%</text>
+
+          <text x="470" y="120">Real gap ~50%</text>
+        </svg>
+      </section>
+
+      <!-- CUMULATIVE EFFECT -->
+      <section class="analysis-card">
+        <h2>The Cumulative Effect: Lost Living Standards</h2>
+
+        <svg class="analysis-svg" viewBox="0 0 900 340" aria-label="Cumulative divergence">
+          <path d="M80 260 C200 240 300 200 420 160 560 120 720 80 860 50" />
+          <path d="M80 260 C200 258 300 255 420 253 560 250 720 248 860 246" />
+          <text x="600" y="70">Cost of essentials</text>
+          <text x="600" y="255">Proposed wages</text>
+        </svg>
+      </section>
+
+      <!-- 7 DAY ROSTERING -->
+      <section class="analysis-card">
+        <h2>Major Condition Change: 7-Day Rostering</h2>
+
+        <div class="analysis-grid">
+          <div class="analysis-card">
+            <h3>The Proposal</h3>
+            <ul>
+              <li>Ordinary hours across 7 days</li>
+              <li>3 months’ notice</li>
+              <li>Change implemented during disputes</li>
+            </ul>
+          </div>
+
+          <div class="analysis-card analysis-callout analysis-callout--warn">
+            <h3>The Trade-Off</h3>
+            <p>5th week of leave vs loss of weekends and predictability.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- FINAL CALCULUS -->
+      <section class="analysis-card">
+        <h2>The Final Calculus</h2>
+
+        <table class="analysis-table">
+          <tr>
+            <th></th>
+            <th>The Need</th>
+            <th>The Offer</th>
+          </tr>
+          <tr>
+            <td>Wages</td>
+            <td>15% catch-up OR 4.5% p.a.</td>
+            <td>3.75 / 3.5 / 3.25</td>
+          </tr>
+          <tr>
+            <td>Outcome</td>
+            <td>Restore living standards</td>
+            <td>Permanent reduction</td>
+          </tr>
+        </table>
+
+        <div class="analysis-callout analysis-callout--bad">
+          Conclusion: modest nominal gains in exchange for permanent real-wage loss.
+        </div>
+      </section>
+
+      <!-- SOURCES -->
+      <section class="analysis-card">
+        <h2>Data Sources &amp; Methodology</h2>
+
+        <ul>
+          <li>ABS CPI (Cat 6401.0)</li>
+          <li>ABS Living Cost Indexes (Cat 6467.0)</li>
+          <li>SA Treasury publications</li>
+          <li>SA Public Sector Enterprise Agreement 2025</li>
+        </ul>
+      </section>
+
+    </section>
+    <!-- ========================= -->
+    <!-- ANALYSIS MODULE END -->
+    <!-- ========================= -->
 
     <footer class="footer">
       <a class="backToTop" href="#top">Back to top</a>
