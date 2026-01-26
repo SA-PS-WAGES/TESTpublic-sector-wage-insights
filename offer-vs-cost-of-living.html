@@ -160,8 +160,9 @@
       min-width: 180px;
       padding: 8px 14px;
       border-radius: 999px;
-      border: 1px solid var(--line);
-      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(110,231,255,.35);
+      background: linear-gradient(135deg, rgba(110,231,255,.18), rgba(167,139,250,.18));
+      box-shadow: 0 10px 24px rgba(0,0,0,.25), inset 0 0 0 1px rgba(255,255,255,.05);
     }
     .menu{ position: relative; z-index: 2; }
     .menuButton{
@@ -171,11 +172,13 @@
       align-items: center;
       gap: 6px;
       font-weight: 900;
-      font-size: 15px;
-      color: var(--accent);
+      font-size: 13px;
+      letter-spacing: .22em;
+      text-transform: uppercase;
+      color: var(--text);
     }
     .menuButton::-webkit-details-marker{ display:none; }
-    .menuButton::after{ content:"▾"; font-size: 12px; color: var(--accent); }
+    .menuButton::after{ content:"▾"; font-size: 12px; color: rgba(245,247,255,.75); }
     .menuList{
       position: absolute;
       top: calc(100% + 10px);
@@ -183,9 +186,9 @@
       min-width: 220px;
       padding: 10px;
       border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.12);
-      background: rgba(7,10,18,.96);
-      box-shadow: 0 18px 40px rgba(0,0,0,.45);
+      border: 1px solid rgba(110,231,255,.25);
+      background: rgba(7,10,18,.98);
+      box-shadow: 0 20px 44px rgba(0,0,0,.5);
       display:flex;
       flex-direction: column;
       gap: 6px;
@@ -202,17 +205,21 @@
     .menuLink{
       padding: 8px 12px;
       border-radius: 10px;
-      color: rgba(245,247,255,.9);
+      color: rgba(245,247,255,.92);
       font-weight: 850;
       font-size: 14px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid transparent;
     }
     .menuLink:hover{
-      background: rgba(255,255,255,.08);
+      border-color: rgba(110,231,255,.45);
+      background: rgba(110,231,255,.12);
       text-decoration: none;
     }
     .menuLink.isActive{
-      background: rgba(110,231,255,.16);
-      color: #E0FBFF;
+      border-color: rgba(110,231,255,.6);
+      background: linear-gradient(135deg, rgba(110,231,255,.18), rgba(167,139,250,.18));
+      color: var(--text);
     }
 
     @media (max-width: 720px){
@@ -348,7 +355,7 @@
               <a class="menuLink isActive" href="offer-vs-cost-of-living.html">Cost of Living Analysis</a>
               <a class="menuLink" href="voting-power.html">Voting Power</a>
               <a class="menuLink" href="methodology.html">Sources &amp; Method</a>
-              <a class="menuLink" href="member-questions.html">Union Reform</a>
+              <a class="menuLink" href="member-questions.html">The Member's Union</a>
               <a class="menuLink" href="current-draft-offer.html">The Current (draft) Offer</a>
             </div>
           </details>
