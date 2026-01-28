@@ -425,6 +425,26 @@
       gap: 6px;
       min-width: 180px;
     }
+    .inputWithTip{
+      display:flex;
+      align-items:center;
+      gap: 6px;
+    }
+    .inputTip{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width: 18px;
+      height: 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(110,231,255,.45);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 900;
+      line-height: 1;
+      cursor: help;
+      user-select: none;
+    }
     .condInputs input[type="number"]{
       width: 220px;
       max-width: 100%;
@@ -824,18 +844,9 @@
           </div>
 
           <div class="formSection">
-            <h4>3. Other allowances</h4>
-            <div class="inputGrid">
-              <div>
-                <label for="otherAnnual">Other annual allowances ($)</label>
-                <input type="number" id="otherAnnual" inputmode="numeric" value="0" />
-              </div>
-              <div>
-                <label for="otherFortnight">Other fortnightly allowances ($)</label>
-                <input type="number" id="otherFortnight" inputmode="numeric" value="0" />
-              </div>
-            </div>
-            <div class="helperText">Only add items not already listed in the allowances section.</div>
+            <h4>3. Most common allowances</h4>
+            <div class="small">Tick to apply, then enter counts. We’ll convert per week to per fortnight automatically.</div>
+            <div id="condQuick" class="condQuick" aria-label="Quick allowances"></div>
           </div>
 
           <div class="btnRow">
@@ -879,12 +890,6 @@
           <h3>Conditions &amp; allowances</h3>
           <div class="small">Only items relevant to your selected classification will appear. Clause numbers match the agreement for easy reference.</div>
 
-          <div class="formSection">
-            <h4>Most common allowances</h4>
-            <div class="small">Tick to apply, then enter counts. We’ll convert per week to per fortnight automatically.</div>
-            <div id="condQuick" class="condQuick" aria-label="Quick allowances"></div>
-          </div>
-
           <label for="condSearch">Search conditions (e.g. “on-call”, “17.1”, “CIO”)</label>
           <input type="search" id="condSearch" placeholder="Type to filter the list…" autocomplete="off" />
 
@@ -910,7 +915,7 @@
             <h3>What this does (and doesn’t) do</h3>
             <p>
               This tool estimates base salary + selected allowances/penalties, then estimates tax, Medicare, MLS and HELP.
-              It does <strong>not</strong> model overtime, shift patterns, leave loading, super, or agency-specific arrangements unless you add them as “Other allowances”.
+              It does <strong>not</strong> model overtime, shift patterns, leave loading, super, or agency-specific arrangements unless they are covered by the listed allowances.
             </p>
           </div>
         </div>
@@ -1112,6 +1117,23 @@
     let COND_ELEMS = {};
     let COND_META = {};
 
+    function wrapWithTooltip(control, tooltipText){
+      if (!tooltipText){
+        return control;
+      }
+      const wrap = document.createElement("div");
+      wrap.className = "inputWithTip";
+      const tip = document.createElement("span");
+      tip.className = "inputTip";
+      tip.textContent = "i";
+      tip.title = tooltipText;
+      tip.setAttribute("role", "img");
+      tip.setAttribute("aria-label", tooltipText);
+      wrap.appendChild(control);
+      wrap.appendChild(tip);
+      return wrap;
+    }
+
     function buildConditionsLists(){
       const all = DATA.conditions_catalog || [];
       const calcBox = document.getElementById("condCalc");
@@ -1184,6 +1206,7 @@
             updateConditionsSummary();
           });
           COND_STATE[item.id].nightShiftCount = Number(inp.value || 0);
+          const nightShiftTip = "How many night shifts you do per week or per fortnight.";
 
           const sel = document.createElement("select");
           sel.innerHTML = `
@@ -1196,8 +1219,8 @@
           });
           COND_STATE[item.id].nightShiftPeriod = sel.value;
 
-          group.appendChild(inp);
-          group.appendChild(sel);
+          group.appendChild(wrapWithTooltip(inp, nightShiftTip));
+          group.appendChild(wrapWithTooltip(sel, "Choose whether the night shift count is per week or per fortnight."));
           inputsWrap.appendChild(group);
         } else if (item.kind === "percent_share_of_base" && item.input){
           const inp = document.createElement("input");
@@ -1209,7 +1232,8 @@
           inp.placeholder = item.input.label || "Percent";
           inp.addEventListener("input", () => { COND_STATE[item.id][item.input.id] = Number(inp.value || 0); });
           COND_STATE[item.id][item.input.id] = Number(inp.value || 0);
-          inputsWrap.appendChild(inp);
+          const percentTip = `Enter the percentage for ${item.label || "this allowance"}.`;
+          inputsWrap.appendChild(wrapWithTooltip(inp, percentTip));
         }
         if (item.id === "on_call" && item.kind === "per_occurrence" && Array.isArray(item.inputs)){
           const periodGroup = document.createElement("div");
@@ -1225,7 +1249,7 @@
             updateConditionsSummary();
           });
           COND_STATE[item.id].onCallPeriod = sel.value;
-          periodGroup.appendChild(sel);
+          periodGroup.appendChild(wrapWithTooltip(sel, "Choose whether your on-call counts are per week or per fortnight."));
           inputsWrap.appendChild(periodGroup);
         }
         if (item.kind === "per_occurrence" && Array.isArray(item.inputs)){
@@ -1242,7 +1266,17 @@
               updateConditionsSummary();
             });
             COND_STATE[item.id][sub.id] = Number(inp.value || 0);
-            inputsWrap.appendChild(inp);
+            let tipText = `Enter the number of ${sub.label || "occurrences"}.`;
+            if (item.id === "on_call"){
+              if (sub.id.toLowerCase().includes("weeknight")){
+                tipText = "How many weeknight on-call shifts you do per week or per fortnight.";
+              } else if (sub.id.toLowerCase().includes("weekend")){
+                tipText = "How many weekend day on-call shifts you do per week or per fortnight.";
+              } else {
+                tipText = "How many on-call shifts you do per week or per fortnight.";
+              }
+            }
+            inputsWrap.appendChild(wrapWithTooltip(inp, tipText));
           });
         }
         if (inputsWrap.childElementCount){ meta.appendChild(inputsWrap); }
@@ -1504,12 +1538,6 @@
         }
       });
 
-      // User-entered "other" allowances
-      const otherAnnual = Number(document.getElementById("otherAnnual").value || 0);
-      const otherFortnight = Number(document.getElementById("otherFortnight").value || 0);
-      extras += (otherAnnual > 0 ? otherAnnual : 0);
-      extras += (otherFortnight > 0 ? otherFortnight * 26 : 0);
-
       return extras;
     }
 
@@ -1696,8 +1724,6 @@
       document.getElementById("fte").value = "1.0";
       document.getElementById("hasHELP").checked = false;
       document.getElementById("noPrivateHealth").checked = false;
-      document.getElementById("otherAnnual").value = "0";
-      document.getElementById("otherFortnight").value = "0";
       document.getElementById("annualisedOverride").value = "";
       document.getElementById("unitOverrideWrap").style.display = "none";
 
