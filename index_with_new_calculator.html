@@ -1434,6 +1434,9 @@
       if (!AWARD_MIN) return null;
       const baseMin = AWARD_MIN[role.code];
       if (typeof baseMin !== "number" || !isFinite(baseMin)) return null;
+      const currentBase = role?.salary_current;
+      if (typeof currentBase !== "number" || !isFinite(currentBase)) return null;
+      if (baseMin <= currentBase) return null;
       const mult = scheduleMultiplier(role, dateKey);
       return baseMin * mult;
     }
