@@ -224,6 +224,17 @@
       background: rgba(255,255,255,.03);
       box-shadow: 0 10px 30px rgba(0,0,0,.18);
     }
+    #calculator{
+      overflow: hidden;
+    }
+    #calculator .recoveryBubble,
+    #calculator .grid,
+    #calculator .card,
+    #calculator .tableWrap,
+    #calculator .kpiGrid,
+    #calculator .infoBox{
+      max-width: 100%;
+    }
     .sectionHead{
       display:flex; justify-content:space-between; align-items:flex-end;
       flex-wrap:wrap; gap:12px; margin-bottom: 10px;
@@ -715,7 +726,8 @@
             </summary>
 
             <div class="menuList">
-              <a class="menuLink isActive" href="index.html">Home</a>
+              <a class="menuLink" href="index.html">Home</a>
+              <a class="menuLink isActive" href="calculator.html">Calculator</a>
               <a class="menuLink" href="voting-power.html">Voting Power</a>
               <a class="menuLink" href="Union Reform.html">The Member's Union</a>
               <a class="menuLink" href="methodology.html">Sources &amp; Method</a>
