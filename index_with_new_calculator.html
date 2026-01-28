@@ -238,6 +238,7 @@
       border: 1px solid var(--line);
       background: rgba(255,255,255,.03);
       padding: 16px;
+      min-width: 0;
     }
     .card h3{ margin:0 0 10px 0; font-size: 16px; letter-spacing: -.2px; }
     label{ display:block; margin-top: 10px; font-size: 13px; color: rgba(245,247,255,.86); }
@@ -532,6 +533,7 @@
       border-radius: 14px;
       border: 1px solid rgba(255,255,255,.10);
       overflow:auto;
+      max-width: 100%;
       background: rgba(0,0,0,.18);
     }
     table{
@@ -567,6 +569,32 @@
     .numStrong{ color: var(--accent); font-weight: 900; }
     .pos{ color: var(--good); font-weight: 900; }
     .neg{ color: var(--bad); font-weight: 900; }
+
+    #calculator.has-results{
+      overflow-x: hidden;
+    }
+    #calculator.has-results .grid,
+    #calculator.has-results .grid > .card,
+    #calculator.has-results .condGrid,
+    #calculator.has-results .kpiGrid{
+      min-width: 0;
+    }
+    #calculator.has-results .tableWrap{
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      max-width: 100%;
+    }
+    #calculator.has-results .tableWrap table{
+      width: 100%;
+      max-width: 100%;
+    }
+    #calculator.has-results #resultsBody td,
+    #calculator.has-results .rowLabel,
+    #calculator.has-results .condDesc,
+    #calculator.has-results .infoBox{
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
 
     .infoBox{
       border-radius: var(--radius);
@@ -735,7 +763,8 @@
             </summary>
 
             <div class="menuList">
-              <a class="menuLink isActive" href="index.html">Home</a>
+              <a class="menuLink" href="index.html">Home</a>
+              <a class="menuLink isActive" href="index_with_new_calculator.html">Updated Calculator</a>
               <a class="menuLink" href="voting-power.html">Voting Power</a>
               <a class="menuLink" href="Union Reform.html">The Member's Union</a>
               <a class="menuLink" href="methodology.html">Sources &amp; Method</a>
@@ -1639,6 +1668,11 @@
         return;
       }
 
+      const calcSection = document.getElementById("calculator");
+      if (calcSection){
+        calcSection.classList.add("has-results");
+      }
+
       const hasHELP = document.getElementById("hasHELP").checked;
       const noPrivate = document.getElementById("noPrivateHealth").checked;
 
@@ -1719,6 +1753,10 @@
     }
 
     function clearAll(){
+      const calcSection = document.getElementById("calculator");
+      if (calcSection){
+        calcSection.classList.remove("has-results");
+      }
       document.getElementById("classSearch").value = "";
       document.getElementById("classSelectedHelp").textContent = "No classification selected yet.";
       document.getElementById("fte").value = "1.0";
