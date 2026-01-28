@@ -843,9 +843,35 @@
             <button class="btn" id="btnClear" type="button">Clear</button>
           </div>
 
+          <div id="outputs" style="display:none; margin-top:18px;">
+            <div class="tableWrap">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Scenario</th>
+                    <th class="num">Base gross</th>
+                    <th class="num">Extras</th>
+                    <th class="num">Total gross</th>
+                    <th class="num">Change vs current</th>
+                    <th class="num">Annual net</th>
+                    <th class="num">Fortnight net</th>
+                  </tr>
+                </thead>
+                <tbody id="resultsBody"></tbody>
+              </table>
+            </div>
+
+            <div class="kpiGrid" id="kpiGrid"></div>
+
+            <div class="infoBox">
+              <h3>Notes</h3>
+              <p id="notesText">—</p>
+            </div>
+          </div>
+
           <div class="infoBox" style="margin-top:12px;">
             <h3>Automatic award floor</h3>
-            <p id="awardNote">If an award minimum exists for your classification, the calculator will automatically use the higher of (schedule base) vs (award minimum), and carry that floor through the next three bumps using the same schedule uplift factor.</p>
+            <p id="awardNote">If an award minimum exists, the calculator uses whichever is higher: the schedule base or the award minimum, then applies that floor to the next three pay points.</p>
           </div>
         </div>
 
@@ -890,31 +916,7 @@
         </div>
       </div>
 
-      <div id="outputs" style="display:none;">
-        <div class="tableWrap">
-          <table>
-            <thead>
-              <tr>
-                <th>Scenario</th>
-                <th class="num">Base gross</th>
-                <th class="num">Extras</th>
-                <th class="num">Total gross</th>
-                <th class="num">Change vs current</th>
-                <th class="num">Annual net</th>
-                <th class="num">Fortnight net</th>
-              </tr>
-            </thead>
-            <tbody id="resultsBody"></tbody>
-          </table>
-        </div>
-
-        <div class="kpiGrid" id="kpiGrid"></div>
-
-        <div class="infoBox">
-          <h3>Notes</h3>
-          <p id="notesText">—</p>
-        </div>
-      </div>
+      
     </section>
 
     <section class="section" id="disclaimer">
@@ -1672,14 +1674,15 @@
       const awardAppliedAny = results.some(r => r.s.appliedAward);
 
       const notes = [];
-      notes.push(`Classification: ${SELECTED_ROLE.code || "—"} (${SELECTED_ROLE.stream || "—"}) · FTE: ${fte}.`);
+      notes.push(`Selected classification: ${SELECTED_ROLE.code || "—"} (${SELECTED_ROLE.stream || "—"}).`);
+      notes.push(`FTE used: ${fte}.`);
       if (awardAppliedAny){
-        notes.push("Award minimum: applied where it increased the schedule base. (If you add/update award_minimums.json, this will reflect it.)");
+        notes.push("Award minimum applied where it lifted the base rate.");
       }else{
-        notes.push("Award minimum: not applied (either no award file present, no match for this classification, or schedule base was already higher).");
+        notes.push("Award minimum not applied (no match, missing file, or schedule base already higher).");
       }
       if ((SELECTED_ROLE.rate_type || "").toLowerCase().includes("annual") === false){
-        notes.push("Note: this classification is listed as a unit/hourly rate in the schedule; you must enter an annualised gross to estimate take-home pay.");
+        notes.push("Unit/hourly role: enter an annualised gross to estimate take-home pay.");
       }
 
       document.getElementById("notesText").textContent = notes.join(" ");
