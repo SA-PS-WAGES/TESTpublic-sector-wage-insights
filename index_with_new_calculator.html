@@ -33,6 +33,7 @@
       line-height:1.45;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
+      overflow-x: hidden;
     }
     a{ color:var(--accent); text-decoration:none; }
     a:hover{ text-decoration:underline; }
@@ -534,6 +535,7 @@
       border: 1px solid rgba(255,255,255,.10);
       overflow:auto;
       max-width: 100%;
+      -webkit-overflow-scrolling: touch;
       background: rgba(0,0,0,.18);
     }
     table{
@@ -609,6 +611,58 @@
     }
     .infoBox h3{ margin:0 0 8px 0; font-size: 14px; font-weight: 900; letter-spacing: -.2px; }
     .infoBox p{ margin:0; color: var(--muted); font-size: 13px; }
+
+    .summaryCard{
+      border-radius: 16px;
+      border: 1px solid rgba(110,231,255,.28);
+      background:
+        radial-gradient(520px 200px at 20% 0%, rgba(110,231,255,.16), transparent 60%),
+        radial-gradient(520px 200px at 80% 0%, rgba(167,139,250,.16), transparent 60%),
+        rgba(0,0,0,.16);
+      padding: 14px 16px;
+      margin-top: 12px;
+      box-shadow: 0 12px 26px rgba(0,0,0,.22);
+    }
+    .summaryCard h3{
+      margin: 0 0 8px 0;
+      font-size: 14px;
+      font-weight: 950;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: rgba(245,247,255,.9);
+    }
+    .summaryText p{
+      margin: 0 0 10px 0;
+      font-size: 13.5px;
+      line-height: 1.4;
+      color: rgba(245,247,255,.9);
+    }
+    .summaryText p:last-child{ margin-bottom: 0; }
+    .summaryText .highlightMoney{
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(110,231,255,.45);
+      background: rgba(110,231,255,.12);
+      color: var(--accent);
+      font-weight: 900;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: .2px;
+    }
+    .summaryText .summaryTag{
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 6px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.2);
+      background: rgba(255,255,255,.08);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-left: 6px;
+    }
 
     .footer{
       margin-top: 20px;
@@ -732,6 +786,7 @@
       input[type="number"], input[type="text"], input[type="search"]{ font-size: 15px; }
       .btn{ width: 100%; justify-content: center; }
       .btnRow{ flex-direction: column; }
+      .summaryText p{ font-size: 14px; }
     }
   </style>
 
@@ -884,6 +939,11 @@
           </div>
 
           <div id="outputs" style="display:none; margin-top:18px;">
+            <div class="summaryCard" id="summaryCard">
+              <h3>Pay increase summary</h3>
+              <div class="summaryText" id="summaryText">—</div>
+            </div>
+
             <div class="tableWrap">
               <table>
                 <thead>
@@ -1476,6 +1536,7 @@
       { key: "salary_2026_07_01", label: "1 Jul 2026" },
       { key: "salary_2027_07_01", label: "1 Jul 2027" }
     ];
+    const INFLATION_RATE = 0.04;
 
     function roleBaseAnnual(role, dateKey){
       const rt = (role.rate_type || "").toLowerCase();
@@ -1659,6 +1720,7 @@
       document.getElementById("outputs").style.display = "none";
       document.getElementById("resultsBody").innerHTML = "";
       document.getElementById("kpiGrid").innerHTML = "";
+      document.getElementById("summaryText").textContent = "—";
       document.getElementById("notesText").textContent = "—";
     }
 
@@ -1709,6 +1771,54 @@
         div.innerHTML = `<div class="k">${x.k}</div><div class="v">${x.v}</div><div class="s">${x.s}</div>`;
         kpi.appendChild(div);
       });
+
+      const summary = document.getElementById("summaryText");
+      const increases = results.slice(1).map((item, idx) => {
+        const prev = results[idx].s;
+        return {
+          label: item.name,
+          grossDelta: item.s.gross - prev.gross,
+          finDelta: item.s.finNet - prev.finNet
+        };
+      });
+
+      const summaryParts = [];
+      increases.forEach((inc, idx) => {
+        const lead = idx === 0 ? "You're due for a pay increase of" : "Then another of";
+        summaryParts.push(
+          `<p>${lead} <span class="highlightMoney">${fmtMoney(inc.grossDelta,0)}</span> on <strong>${inc.label}</strong>. ` +
+          `This will be roughly <span class="highlightMoney">${fmtMoney(inc.finDelta,2)}</span> more in your fortnightly pay after tax.</p>`
+        );
+      });
+
+      const currentGross = current.gross;
+      const firstIncrease = increases[0]?.grossDelta || 0;
+      const totalIncrease = last.gross - currentGross;
+      const inflationImpact = currentGross * INFLATION_RATE;
+      const inflationPct = (INFLATION_RATE * 100).toFixed(1);
+      const firstPct = currentGross > 0 ? (firstIncrease / currentGross) : 0;
+
+      if (firstPct < INFLATION_RATE){
+        summaryParts.push("<p>Currently inflation is higher than the first increase, and the following wage increases decrease in value.</p>");
+      }else{
+        summaryParts.push("<p>Currently inflation is lower than the first increase, but later wage increases can still shrink in value as prices rise.</p>");
+      }
+
+      const lossLow = Math.max(0, inflationImpact - totalIncrease);
+      const lossHigh = Math.max(0, inflationImpact - firstIncrease);
+      const rangeMin = Math.min(lossLow, lossHigh);
+      const rangeMax = Math.max(lossLow, lossHigh);
+      const lossRange = rangeMin === rangeMax
+        ? fmtMoney(rangeMax,0)
+        : `${fmtMoney(rangeMin,0)}–${fmtMoney(rangeMax,0)}`;
+
+      summaryParts.push(
+        `<p>This means that <span class="highlightMoney">${lossRange}</span> will be taken up by cost of living, rather than feel like you have more pay ` +
+        `(based on a current annual inflation rate of ${inflationPct}%).</p>`
+      );
+      summaryParts.push("<p><strong>A pay rise that doesn't rise with inflation is a pay cut. Vote no.</strong><span class=\"summaryTag\">Message</span></p>");
+
+      summary.innerHTML = summaryParts.join("");
 
       // Table rows
       const tbody = document.getElementById("resultsBody");
